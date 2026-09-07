@@ -1,0 +1,30 @@
+{{define "docs-search"}}
+<form class="docs-search" method="get" action="/docs" role="search">
+  <div
+    class="ui-text-field ui-text-field-outlined ui-text-field-has-placeholder"
+  >
+    <span class="ui-text-field-control">
+      <label for="docs-search">Search</label>
+      <input
+        id="docs-search"
+        type="search"
+        name="q"
+        placeholder="Search docs"
+        autocomplete="off"
+        aria-controls="docs-search-results"
+        aria-expanded="false"
+      />
+    </span>
+  </div>
+  {{if .ThemeSlug}}<input
+    type="hidden"
+    name="theme"
+    value="{{.ThemeSlug}}"
+  />{{end}} {{if .Scheme}}<input
+    type="hidden"
+    name="scheme"
+    value="{{.Scheme}}"
+  />{{end}}
+  <ul id="docs-search-results" class="docs-search-results" hidden></ul>
+</form>
+{{end}}

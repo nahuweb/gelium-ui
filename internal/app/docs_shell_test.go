@@ -454,17 +454,13 @@ func TestDocsShellFooterAndJSONLDRegressions(t *testing.T) {
 	for _, contract := range []string{
 		`<footer class="ui-footer">`,
 		`<p class="ui-footer-brand">Gelium UI</p>`,
-		`class="ui-footer-heading">Getting started</summary>`,
-		`class="ui-footer-heading">Actions</summary>`,
-		`class="ui-footer-heading">Patterns</summary>`,
-		`class="ui-footer-heading">Recipes</summary>`,
-		`class="ui-footer-heading">Core</summary>`,
-		`<a href="/docs/patterns">Patterns</a>`,
-		`<a href="/docs/information-architecture">Information architecture</a>`,
-		`<a href="/docs/themes">Themes</a>`,
-		`<a href="/docs/principles">Design principles</a>`,
-		`<a href="/docs/content-style">Content style</a>`,
-		`<a href="/recipes/admin-resource">Admin Resource</a>`,
+		`class="ui-footer-heading">Product</summary>`,
+		`class="ui-footer-heading">Guidance</summary>`,
+		`class="ui-footer-heading">Source</summary>`,
+		`<a href="/docs">Docs</a>`,
+		`<a href="/docs/agent-workflow">Agent workflow</a>`,
+		`<a href="/docs/server-contracts">Server contracts</a>`,
+		`<a href="https://github.com/cryptonahue/gelium-ui">GitHub</a>`,
 		`"@type":"BreadcrumbList"`,
 		`"@type":"TechArticle"`,
 		`"item":"https://gelium-ui.example/components/button"`,
@@ -665,56 +661,25 @@ func TestDefaultFooter(t *testing.T) {
 	if footer.Legal != "© 2026 Gelium UI · MIT" {
 		t.Errorf("Legal = %q, want %q", footer.Legal, "© 2026 Gelium UI · MIT")
 	}
-
-	// Footer sections must be derived from the same docsNavFor model (flat export),
-	// not a second hand-maintained component list.
-	nav := docsNavFor("", "", "")
-	navTitles := docsNavGroupTitles(nav)
-	if len(footer.Sections) == 0 {
-		t.Fatal("defaultFooter must expose sections from docs nav")
+	if got := len(footer.Sections); got != 3 {
+		t.Fatalf("default footer groups = %d, want 3", got)
 	}
-	for _, section := range footer.Sections {
-		if section.Title == "Documentation" {
-			// Legacy Documentation heading may wrap Getting started + Home.
-			continue
-		}
-		if !containsString(navTitles, section.Title) && section.Title != "Components" {
-			t.Errorf("footer section %q is not sourced from docsNavFor groups %v", section.Title, navTitles)
+	for i, want := range []string{"Product", "Guidance", "Source"} {
+		if footer.Sections[i].Title != want {
+			t.Errorf("footer group %d = %q, want %q", i, footer.Sections[i].Title, want)
 		}
 	}
-
-	// Every docsSections component link must appear somewhere in the footer.
-	flat := footerFlatPaths(footer)
-	for _, section := range docsSections {
-		for _, link := range section.Links {
-			if !containsString(flat, link.Path) {
-				t.Errorf("footer missing component link %q from docsSections", link.Path)
-			}
-		}
-	}
-	// Docs hub and Home remain reachable from footer chrome.
-	if !containsString(flat, "/docs") {
-		t.Error("footer must include /docs")
-	}
-	if !containsString(flat, "/") {
-		t.Error("footer must include Home /")
-	}
-	// Patterns, recipes, and handbook pages stay in lockstep with the nav model.
 	for _, path := range []string{
-		"/docs/patterns",
-		"/docs/information-architecture",
-		"/docs/themes",
-		"/docs/tokens",
+		"/docs",
+		"/components/button",
+		"/docs/themes/gallery",
+		"/docs/agent-workflow",
 		"/docs/server-contracts",
-		"/docs/accessibility",
-		"/docs/principles",
-		"/docs/content-style",
-		"/recipes/admin-resource",
-		"/recipes/ops-queue",
-		"/recipes/public-feed",
+		"https://www.npmjs.com/package/gelium-ui",
+		"https://github.com/cryptonahue/gelium-ui",
 	} {
-		if !containsString(flat, path) {
-			t.Errorf("footer missing nav path %q", path)
+		if !containsString(footerFlatPaths(footer), path) {
+			t.Errorf("shared footer missing path %q", path)
 		}
 	}
 }

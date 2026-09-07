@@ -98,11 +98,11 @@ type faqItemView struct {
 // marketingLanding builds the home page composition from Gelium primitives.
 // Persuade mode: exactly one primary button on the page (hero Get started).
 func marketingLanding() landingView {
-	return landingView{
+	view := landingView{
 		Hero: &heroView{
 			Eyebrow:  "Gelium UI",
-			Title:    "Build UI that works without JavaScript.",
-			Subtitle: "Open-code components, semantic HTML, token themes, and server-first flows for HTML-first applications.",
+			Title:    "Build server-rendered UI your LLM can understand.",
+			Subtitle: "Gelium gives developers HTML-first components, predictable server contracts, and agent guidance for building interfaces that work without JavaScript.",
 			CTAs: []buttonView{
 				{Label: "Install gelium-ui", Variant: "primary", Href: "#landing-install"},
 				{Label: "Give this to your LLM", Variant: "secondary", Href: "https://skills.sh/nahuweb/gelium-ui/install-gelium"},
@@ -113,33 +113,23 @@ func marketingLanding() landingView {
 			"No-JS baseline",
 			"Server-first state",
 			"Themes without forks",
+			"Agent-ready guidance",
 		},
 		FeaturesHeading: sectionHeadingView{
 			Eyebrow:  "Why Gelium",
-			Title:    "Built for server-rendered apps",
+			Title:    "A better default for LLM-built interfaces",
 			Centered: true,
 		},
 		Features: []featureCardView{
-			{
-				Title: "Native HTML first",
-				Body:  "Real buttons, dialogs, selects, and tables. ARIA only when the platform has no equivalent.",
-				CTA:   &buttonView{Label: "Read principles", Variant: "outline", Href: "/docs/principles"},
-			},
-			{
-				Title: "Tokens, not forks",
-				Body:  "Themes map aesthetics onto --ui-* variables. Markup stays stable when you switch Material or Basecoat.",
-				CTA:   &buttonView{Label: "Themes", Variant: "outline", Href: "/docs/themes"},
-			},
-			{
-				Title: "Server contracts",
-				Body:  "GET with stable query params, POST + 303, 422 validation, and gelium:toast for transient feedback — no parallel APIs.",
-				CTA:   &buttonView{Label: "See a recipe", Variant: "outline", Href: "/recipes/admin-resource"},
-			},
+			{Title: "Native HTML first", Body: "Use real buttons, links, dialogs, selects, and tables. Add ARIA only when the platform has no equivalent."},
+			{Title: "No-JS baseline", Body: "The main flow works with plain HTML and server rendering; JavaScript remains a progressive enhancement."},
+			{Title: "Server contracts", Body: "GET, POST + 303, 422 validation, and persistent feedback make behavior predictable for people and agents."},
+			{Title: "Tokens, not forks", Body: "Theme classes and --ui-* variables change the visual direction without duplicating your markup."},
 		},
 		Split: &splitView{
 			Eyebrow: "How it fits",
-			Title:   "Start with the package. Copy the open code.",
-			Body:    "Install gelium-ui for CSS, themes, templates, optional JS helpers, agent guidance, and portable references. The server renders the HTML; progressive enhancement stays optional.",
+			Title:   "Install in under a minute.",
+			Body:    "Install the package, import the shipped CSS, and start composing server-rendered HTML with Gelium's tokens and registered components.",
 			CTA:     &buttonView{Label: "Open the docs", Variant: "secondary", Href: "/docs"},
 			Media: template.HTML(
 				`<pre class="ui-landing-code" tabindex="0"><code>npm install gelium-ui
@@ -160,7 +150,7 @@ func marketingLanding() landingView {
 </div>
 
 /* Optional */
-// gelium.js — toast + 422 helper</code></pre>`,
+				// Optional: gelium.js — toast + 422 helper</code></pre>`,
 			),
 		},
 		Agent: &splitView{
@@ -261,6 +251,10 @@ https://skills.sh/nahuweb/gelium-ui/install-gelium</code></pre>`),
 			},
 		},
 	}
+	view.Demo = nil
+	view.Recipes = nil
+	view.FAQ = nil
+	return view
 }
 
 // homeLandingNav is the compact primary nav for the marketing site chrome.
@@ -277,30 +271,24 @@ func homeLandingNav() []navLink {
 
 func marketingFooter() *footerView {
 	sections := []footerSection{
-		{Title: "Package", Links: []navLink{
-			{Path: "/components/button", Label: "Component registry"},
+		{Title: "Product", Links: []navLink{
+			{Path: "/docs", Label: "Docs"},
+			{Path: "/components/button", Label: "Components"},
 			{Path: "/docs/themes/gallery", Label: "Themes"},
-			{Path: "/docs/templates/product", Label: "Templates"},
 		}},
-		{Title: "Learn", Links: []navLink{
-			{Path: "/docs", Label: "Documentation"},
+		{Title: "Guidance", Links: []navLink{
+			{Path: "/docs/agent-workflow", Label: "Agent workflow"},
 			{Path: "/docs/server-contracts", Label: "Server contracts"},
-			{Path: "/docs/agent-workflow", Label: "Agent guidance"},
 		}},
-		{Title: "Resources", Links: []navLink{
+		{Title: "Source", Links: []navLink{
 			{Path: "https://www.npmjs.com/package/gelium-ui", Label: "npm"},
 			{Path: "https://github.com/cryptonahue/gelium-ui", Label: "GitHub"},
-			{Path: "/docs/changelog", Label: "Changelog"},
-		}},
-		{Title: "Community", Links: []navLink{
-			{Path: "https://github.com/cryptonahue/gelium-ui/issues", Label: "Issues"},
-			{Path: "https://github.com/cryptonahue/gelium-ui/discussions", Label: "Discussions"},
 		}},
 	}
 	return &footerView{
-		Brand: "Gelium UI",
+		Brand:    "Gelium UI",
 		Sections: sections,
-		Legal: "© 2026 Gelium UI · MIT",
+		Legal:    "© 2026 Gelium UI · MIT",
 	}
 }
 

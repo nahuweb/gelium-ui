@@ -766,7 +766,7 @@ func chromeHref(path, themeSlug, scheme string, profiles ...string) string {
 // names. The native select submits ?theme=<slug> to the same URL (0-JS GET
 // form); the hidden scheme input preserves the current ?scheme= when set.
 // Other query params are dropped, matching the old link-list contract.
-func themeSwitcherFor(r *http.Request, currentClass, themeSlug, scheme string) *themeSwitcherView {
+func themeSwitcherFor(r *http.Request, currentClass, _ string, scheme string) *themeSwitcherView {
 	current := themeClass(currentClass)
 	if r != nil {
 		if q := themeFromRequest(r); q != "" {
@@ -878,7 +878,7 @@ func recipeSwitcherFor(r *http.Request, selection documentSelection, execution a
 // (a hidden light twin after the checkbox supplies the light value, since a
 // cleared checkbox submits nothing). The hidden theme input keeps the current
 // ?theme= slug. No scheme yet = light (matches default light tokens).
-func schemeSwitcherFor(r *http.Request, themeSlug, scheme string) *schemeSwitcherView {
+func schemeSwitcherFor(_ *http.Request, themeSlug, scheme string) *schemeSwitcherView {
 	selection := resolveDocumentSelection(url.Values{"theme": []string{themeSlug}, "scheme": []string{scheme}})
 	switcher := schemeSwitcherForSelection(selection, accordionExecutionNative)
 	switcher.Theme = themeSlug
@@ -1060,28 +1060,12 @@ type footerSection struct {
 	Links []navLink
 }
 
-// defaultFooter is the site-wide chrome data: brand, IA sections from the same
-// docsNavFor builder as the docs sidebar (Home prepended under Getting started),
-// and the legal line. Injected at render choke points; a consumer may replace
-// it per page by setting pageView.Footer explicitly.
+// defaultFooter is the shared public chrome data used by the landing and docs.
+// The docs sidebar remains the full IA surface; the footer stays intentionally
+// concise. Injected at render choke points; a consumer may replace it per page
+// by setting pageView.Footer explicitly.
 func defaultFooter() *footerView {
-	nav := docsNavFor("", "", "")
-	sections := make([]footerSection, 0, len(nav.Groups))
-	for _, g := range nav.Groups {
-		links := make([]navLink, 0, len(g.Links)+1)
-		if g.Title == "Getting started" {
-			links = append(links, navLink{Path: "/", Label: "Home"})
-		}
-		for _, l := range g.Links {
-			links = append(links, navLink{Path: l.Path, Label: l.Label})
-		}
-		sections = append(sections, footerSection{Title: g.Title, Links: links})
-	}
-	return &footerView{
-		Brand:    "Gelium UI",
-		Sections: sections,
-		Legal:    "© 2026 Gelium UI · MIT",
-	}
+	return marketingFooter()
 }
 
 type errorStateView struct {
@@ -1395,7 +1379,7 @@ func componentRouteLabel(routePath string) (string, bool) {
 // Home > Components > <label>. It mirrors the BreadcrumbList JSON-LD emitted
 // for the same page, so the visible breadcrumb and the structured data always
 // agree (contract §11). The Components crumb links to the /docs index.
-func componentBreadcrumb(label, routePath string) *breadcrumbView {
+func componentBreadcrumb(label, _ string) *breadcrumbView {
 	return &breadcrumbView{Items: []breadcrumbItem{
 		{Href: "/", Label: "Home"},
 		{Href: "/docs", Label: "Components"},

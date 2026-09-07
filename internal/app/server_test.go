@@ -76,16 +76,16 @@ func TestHomeRendersMarketingLanding(t *testing.T) {
 	for _, contract := range []string{
 		`class="ui-landing"`,
 		`class="ui-hero`,
-		`Build UI that works without JavaScript.`,
+		`Build server-rendered UI your LLM can understand.`,
 		`class="ui-button ui-button-primary"`,
 		`Install gelium-ui`,
 		`href="#landing-install"`,
-		`href="/components/button"`,
+		`href="/docs/agent-workflow"`,
 		`class="ui-feature-card`,
 		`class="ui-split`,
 		`class="ui-footer"`,
-		`Package`,
-		`Resources`,
+		`Product`,
+		`Guidance`,
 		`class="site-header"`,
 		`class="site-header-mobile-menu"`,
 		`<summary>Menu</summary>`,
@@ -713,23 +713,20 @@ func TestHomeRendersDefaultFooter(t *testing.T) {
 		`<footer class="ui-footer">`,
 		`<p class="ui-footer-brand">Gelium UI</p>`,
 		`<nav class="ui-footer-nav" aria-label="Footer">`,
-		`<summary class="ui-footer-heading">Package</summary>`,
-		`<summary class="ui-footer-heading">Learn</summary>`,
-		`<summary class="ui-footer-heading">Resources</summary>`,
-		`<summary class="ui-footer-heading">Community</summary>`,
-		`<a href="/components/button">Component registry</a>`,
-		`<a href="/docs">Documentation</a>`,
-		`<a href="/docs/agent-workflow">Agent guidance</a>`,
-		`<a href="https://www.npmjs.com/package/gelium-ui">npm</a>`,
-		`<a href="https://github.com/cryptonahue/gelium-ui/issues">Issues</a>`,
+		`<summary class="ui-footer-heading">Product</summary>`,
+		`<summary class="ui-footer-heading">Guidance</summary>`,
+		`<summary class="ui-footer-heading">Source</summary>`,
+		`<a href="/docs">Docs</a>`,
+		`<a href="/docs/agent-workflow">Agent workflow</a>`,
+		`<a href="https://github.com/cryptonahue/gelium-ui">GitHub</a>`,
 		`<p class="ui-footer-legal">© 2026 Gelium UI · MIT</p>`,
 	} {
 		if !strings.Contains(body, contract) {
 			t.Errorf("home is missing footer contract %q", contract)
 		}
 	}
-	if got := strings.Count(body, `<details class="ui-footer-details" open>`); got != 4 {
-		t.Errorf("marketing footer rendered %d expanded groups, want 4", got)
+	if got := strings.Count(body, `<details class="ui-footer-details" open>`); got != 3 {
+		t.Errorf("landing footer rendered %d expanded groups, want 3", got)
 	}
 }
 

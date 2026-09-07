@@ -1,13 +1,18 @@
-{{define "docs-sidebar"}}
-{{range $i, $g := .Groups}}
-{{if $i}}<hr class="ui-divider docs-nav-divider">{{end}}
+{{define "docs-sidebar"}} {{template "docs-search" .}} {{range $i, $g :=
+.Groups}} {{if $i}}
+<hr class="ui-divider docs-nav-divider" />
+{{end}}
 <p class="docs-nav-group-label">{{$g.Title}}</p>
 <ul class="ui-list docs-nav-list">
   {{range $g.Links}}
   <li class="ui-list-item">
-    <a class="ui-list-item-link{{if .Current}} is-current{{end}}" href="{{.Href}}"{{if .Current}} aria-current="page"{{end}}>{{.Label}}</a>
+    {{if .Current}}<a
+      class="ui-list-item-link is-current"
+      href="{{.Href}}"
+      aria-current="page"
+      >{{.Label}}</a
+    >{{else}}<a class="ui-list-item-link" href="{{.Href}}">{{.Label}}</a>{{end}}
   </li>
   {{end}}
 </ul>
-{{end}}
-{{end}}
+{{end}} {{end}}

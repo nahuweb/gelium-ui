@@ -233,8 +233,8 @@ func TestPageSectionArchitectureDocsModel(t *testing.T) {
 	}
 	body := getOKBody(t, path)
 	footer := strings.Index(body, `<footer class="ui-footer">`)
-	if footer < 0 || !strings.Contains(body[footer:], `<a href="/docs/page-section-architecture">`) {
-		t.Error("footer must include the page and section architecture entry")
+	if footer < 0 || !strings.Contains(body[footer:], `<a href="/docs">Docs</a>`) {
+		t.Error("footer must include the shared docs entry point")
 	}
 }
 
