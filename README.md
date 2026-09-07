@@ -2,7 +2,7 @@
 
 > Themeable, open-code UI components for Tailwind CSS and HTMX.
 
-Current release: **v0.6.6** (prepared; npm publication pending) — [npm `gelium-ui`](https://www.npmjs.com/package/gelium-ui).
+Current release: **v0.6.7** (prepared; npm publication pending) — [npm `gelium-ui`](https://www.npmjs.com/package/gelium-ui).
 
 Gelium UI is an open-code, server-rendered UI library for HTML-first products.
 It gives teams reusable components, token-based themes, accessible states, and

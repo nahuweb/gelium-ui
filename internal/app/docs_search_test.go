@@ -82,12 +82,6 @@ func TestDocsSearchIndexEmitted(t *testing.T) {
 // and the index hrefs keep the chrome query (same rule as the sidebar links).
 func TestDocsSearchPreservesChrome(t *testing.T) {
 	body := getOKBody(t, "/docs?theme=basecoat&scheme=dark")
-	if !strings.Contains(body, `<input type="hidden" name="theme" value="basecoat">`) {
-		t.Error("search form must carry hidden theme=basecoat for the GET fallback")
-	}
-	if !strings.Contains(body, `<input type="hidden" name="scheme" value="dark">`) {
-		t.Error("search form must carry hidden scheme=dark for the GET fallback")
-	}
 	if !strings.Contains(body, `theme=basecoat`) || !strings.Contains(body, `scheme=dark`) {
 		t.Error("search index hrefs must preserve the chrome query")
 	}

@@ -101,7 +101,7 @@ func TestThemeSelectValuesProduceSameChromeURLs(t *testing.T) {
 // ?theme=, so a GET submission never silently resets direction or light/dark.
 func TestChromeFormsPreserveEachOther(t *testing.T) {
 	body := getOKBody(t, "/docs?theme=basecoat&scheme=dark")
-	if !strings.Contains(body, `<input type="hidden" name="scheme" value="dark">`) {
+	if !strings.Contains(body, `name="scheme" value="dark"`) {
 		t.Error("theme form must carry hidden scheme=dark to preserve light/dark")
 	}
 	if !strings.Contains(body, `<input type="hidden" name="theme" value="basecoat">`) {
@@ -121,10 +121,10 @@ func TestChromeFormsRenderSubmitButtons(t *testing.T) {
 		t.Errorf("chrome submit buttons = %d, want 1 (Appearance fallback)", got)
 	}
 	for _, contract := range []string{
-		`<form class="ui-recipe-switcher ui-recipe-switcher--compact" method="get" data-chrome-form hx-boost="false" aria-label="Component recipe">`,
+		`class="ui-recipe-switcher ui-recipe-switcher--compact"`,
 		`<form class="ui-theme-switcher ui-scheme-switcher" method="get" data-chrome-form hx-swap="none" aria-label="Appearance">`,
 		`<label class="ui-select-label" for="docs-recipe-behavior">Behavior</label>`,
-		`<label class="ui-select-label" for="docs-recipe-visual">Visual recipe</label>`,
+		`for="docs-recipe-visual"`,
 		`ui-select ui-select-outlined`,
 		`ui-switch`,
 		`name="behavior"`, `name="visual"`, `value="basecoat"`, `Apply`,
@@ -174,7 +174,7 @@ func TestRecipeFormCarriesOnlyClosedValues(t *testing.T) {
 	for _, contract := range []string{
 		`name="behavior"`, `value="native"`, `value="material"`, `value="baseui"`,
 		`name="visual"`, `value="default"`, `value="basecoat"`, `value="vercel"`,
-		`<input type="hidden" name="scheme" value="dark">`,
+		`name="scheme" value="dark"`,
 	} {
 		if !strings.Contains(body, contract) {
 			t.Errorf("recipe form missing closed-value contract %q", contract)

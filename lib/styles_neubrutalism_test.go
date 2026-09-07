@@ -11,7 +11,7 @@ func singleSpaceCSS(css string) string {
 }
 
 func TestNeubrutalismDepthTokensCoverPrimarySurfaces(t *testing.T) {
-	css := themeCSS(t, "theme-neubrutalism")
+	css := singleSpaceCSS(themeCSS(t, "theme-neubrutalism"))
 	for _, contract := range []string{
 		`--ui-dialog-border: var(--ui-border-width-1) var(--ui-border-style-solid) var(--ui-color-border);`,
 		`--ui-dialog-shadow: var(--ui-shadow-3);`,

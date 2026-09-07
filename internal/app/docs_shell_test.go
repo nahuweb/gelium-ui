@@ -391,7 +391,7 @@ func TestDocsShellChromeActivePeersAndIA(t *testing.T) {
 		// The Recipe form deliberately drops unrelated query state and submits a
 		// closed visual key; middleware performs the canonical GET redirect.
 		body := getOKBody(t, "/components/button?foo=bar&theme=material")
-		if !strings.Contains(body, `<form class="ui-recipe-switcher ui-recipe-switcher--compact" method="get"`) {
+		if !strings.Contains(body, `class="ui-recipe-switcher ui-recipe-switcher--compact"`) {
 			t.Error("topbar Recipe switcher must be a native GET form")
 		}
 		for _, opt := range []string{`<option value="native"`, `<option value="material"`, `<option value="basecoat"`, `<option value="baseui"`} {

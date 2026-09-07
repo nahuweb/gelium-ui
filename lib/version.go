@@ -5,4 +5,4 @@ package lib
 // instead of serving a stale bundle. Centralized here (S4.6): templates render
 // {{.AssetsVersion}} from this constant, and the coherence test pins it against
 // the npm package version so the three version surfaces cannot drift again.
-const AssetsVersion = "0.6.6"
+const AssetsVersion = "0.6.7"

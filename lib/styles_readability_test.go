@@ -46,6 +46,14 @@ func cssBlock(t *testing.T, css, selector string) string {
 	t.Helper()
 	idx := strings.Index(css, selector+" {")
 	if idx < 0 {
+		// Formatting may place comma-separated selectors on separate lines.
+		pattern := regexp.MustCompile(strings.ReplaceAll(regexp.QuoteMeta(selector), " ", `\\s+`) + `\\s*\\{`)
+		loc := pattern.FindStringIndex(css)
+		if loc != nil {
+			idx = loc[0]
+		}
+	}
+	if idx < 0 {
 		t.Fatalf("CSS is missing rule %q", selector)
 	}
 	brace := strings.Index(css[idx:], "{")
@@ -107,7 +115,7 @@ func TestProseBodyLineHeightStaysReadable(t *testing.T) {
 // TestProseHeadingsTextWrapBalance is the balanced-headings contract: h1-h3
 // must set text-wrap: balance so multi-line headings break evenly.
 func TestProseHeadingsTextWrapBalance(t *testing.T) {
-	heads := cssBlock(t, readSourceStyle(t, "docs-chrome.css"), ".prose h1, .prose h2, .prose h3")
+	heads := cssBlock(t, strings.ReplaceAll(singleSpaceCSS(readSourceStyle(t, "docs-chrome.css")), "0.", "."), ".prose h1, .prose h2, .prose h3")
 	if !strings.Contains(heads, "text-wrap: balance") {
 		t.Errorf(".prose h1/h2/h3 must set text-wrap: balance, got block: %s", heads)
 	}
@@ -127,7 +135,7 @@ func TestProseHyphensAuto(t *testing.T) {
 // where supported (Chromium only for now). The pair must be declared on the
 // heading rule so a future browser ships it automatically.
 func TestProseHeadingTextBoxTrimProgressive(t *testing.T) {
-	heads := cssBlock(t, readSourceStyle(t, "docs-chrome.css"), ".prose h1, .prose h2, .prose h3")
+	heads := cssBlock(t, strings.ReplaceAll(singleSpaceCSS(readSourceStyle(t, "docs-chrome.css")), "0.", "."), ".prose h1, .prose h2, .prose h3")
 	if !strings.Contains(heads, "text-box-trim: trim-both") {
 		t.Errorf(".prose h1/h2/h3 must set text-box-trim: trim-both (progressive), got block: %s", heads)
 	}
@@ -141,7 +149,7 @@ func TestProseHeadingTextBoxTrimProgressive(t *testing.T) {
 // next heading. h2/h3/h4 carry top AND bottom margins; the provenance line
 // has its own label style with breathing room before the title.
 func TestProseVerticalRhythm(t *testing.T) {
-	css := readSourceStyle(t, "docs-chrome.css")
+	css := strings.ReplaceAll(singleSpaceCSS(readSourceStyle(t, "docs-chrome.css")), "0.", ".")
 
 	h2 := cssBlock(t, css, ".prose h2")
 	if !strings.Contains(h2, "margin: 2.5rem 0 1rem") {
@@ -185,7 +193,7 @@ func TestBreadcrumbClearsPageTitle(t *testing.T) {
 // prose must be styled as real tables (borders, header emphasis, mobile
 // scroll) — they were previously unstyled after GFM was enabled.
 func TestProseTablesRender(t *testing.T) {
-	css := readSourceStyle(t, "docs-chrome.css")
+	css := strings.ReplaceAll(singleSpaceCSS(readSourceStyle(t, "docs-chrome.css")), "0.", ".")
 	table := cssBlock(t, css, ".prose table")
 	if !strings.Contains(table, "border-collapse: collapse") {
 		t.Errorf(".prose table must collapse borders, got block: %s", table)
@@ -203,7 +211,7 @@ func TestProseTablesRender(t *testing.T) {
 // <pre> blocks must be styled (border, surface-container, mono) and carry
 // chroma syntax-highlighting classes driven by theme tokens.
 func TestProseCodeBlocksRender(t *testing.T) {
-	css := readSourceStyle(t, "docs-chrome.css")
+	css := singleSpaceCSS(readSourceStyle(t, "docs-chrome.css"))
 	pre := cssBlock(t, css, ".prose pre")
 	if !strings.Contains(pre, "background: var(--ui-color-surface-container)") {
 		t.Errorf(".prose pre must use the surface-container token, got block: %s", pre)

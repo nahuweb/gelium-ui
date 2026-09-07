@@ -1177,8 +1177,8 @@ func TestTypeAliasSnapshotEquivalence(t *testing.T) {
 			for _, step := range typeScaleSteps {
 				props := decomposeThemeStep(t, light, step)
 				got := composeTypeAlias(props)
-				want := strings.Join(strings.Fields(themeWant[step]), " ")
-				gotNorm := strings.Join(strings.Fields(got), " ")
+				want := strings.ReplaceAll(strings.Join(strings.Fields(themeWant[step]), " "), " 0.", " .")
+				gotNorm := strings.ReplaceAll(strings.Join(strings.Fields(got), " "), " 0.", " .")
 				if gotNorm != want {
 					t.Errorf("%s: composed --ui-type-%s = %q, want baseline %q (decomposition changed the resolved value)",
 						theme, step, gotNorm, want)

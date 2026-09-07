@@ -6,6 +6,8 @@ The format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/) and 
 
 ## [Unreleased]
 
+## [0.6.7] — 2026-09-07
+
 ### Changed
 
 - **Documentation chrome**: the header now uses link-based navigation, keeps GitHub/version together, and preserves behavior, recipe, reference, skin, execution, and appearance selections across navigation.
@@ -229,7 +231,8 @@ The format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/) and 
 - **Access and verification contracts** (Phases A–D): native semantics, focus rings, aria-* across the whole surface.
 - **Docs shell**: navigation, sidebar, breadcrumbs, search (disabled), theme/scheme switchers.
 
-[Unreleased]: https://github.com/cryptonahue/gelium-ui/compare/v0.6.6...HEAD
+[Unreleased]: https://github.com/cryptonahue/gelium-ui/compare/v0.6.7...HEAD
+[0.6.7]: https://github.com/cryptonahue/gelium-ui/releases/tag/v0.6.7
 [0.6.6]: https://github.com/cryptonahue/gelium-ui/releases/tag/v0.6.6
 [0.6.5]: https://github.com/cryptonahue/gelium-ui/releases/tag/v0.6.5
 [0.6.4]: https://github.com/cryptonahue/gelium-ui/releases/tag/v0.6.4

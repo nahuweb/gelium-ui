@@ -1,7 +1,7 @@
 ---
 name: gelium-ui
 description: "Trigger: gelium-ui, Gelium UI, UI screen, UI component, Tailwind, HTMX. Load Gelium's project-local guidance before planning or implementing server-rendered HTML UI."
-version: 0.6.6
+version: 0.6.7
 license: MIT
 ---
 

@@ -6,7 +6,7 @@ import (
 )
 
 func TestMarketingShellUsesInlineStartMobileDrawer(t *testing.T) {
-	css := sourceComponentCSS(t, "docs-chrome.css")
+	css := strings.Join(strings.Fields(sourceComponentCSS(t, "docs-chrome.css")), " ")
 	for _, contract := range []string{
 		".site-header-mobile-menu { display: none; }",
 		"@media (max-width: 48rem)",

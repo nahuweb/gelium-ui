@@ -1,6 +1,6 @@
 {
   "name": "gelium-ui-site",
-  "version": "0.6.6",
+  "version": "0.6.7",
   "private": true,
   "scripts": {
     "build": "tailwindcss --cwd .. -i site/web/styles/app.css -o site/web/static/app.css --minify && node ../scripts/copy-htmx.mjs && node ../scripts/copy-icons.mjs && node ../scripts/copy-lib-js.mjs && node ../scripts/copy-agent-guidance.mjs"
@@ -12,6 +12,6 @@
     "tailwindcss": "4.3.3"
   },
   "dependencies": {
-    "gelium-ui": "0.6.6"
+    "gelium-ui": "0.6.7"
   }
 }

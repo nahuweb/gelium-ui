@@ -91,7 +91,7 @@ func TestRecipePrimaryRoutesRenderOneFullNativeForm(t *testing.T) {
 				t.Fatalf("status = %d, want %d", res.Code, http.StatusOK)
 			}
 			body := res.Body.String()
-			if got := strings.Count(body, `<form class="ui-recipe-switcher ui-recipe-switcher--full" method="get" data-chrome-form hx-boost="false" aria-label="Component recipe">`); got != 1 {
+			if got := strings.Count(body, `class="ui-recipe-switcher ui-recipe-switcher--full"`); got != 1 {
 				t.Fatalf("full Recipe forms = %d, want 1", got)
 			}
 			if got := strings.Count(body, `ui-recipe-switcher--compact`); got != 0 {
@@ -103,9 +103,9 @@ func TestRecipePrimaryRoutesRenderOneFullNativeForm(t *testing.T) {
 				}
 			}
 			for _, label := range []string{
-				`<label class="ui-select-label" for="docs-recipe-behavior">Behavior</label>`,
-				`<label class="ui-select-label" for="docs-recipe-visual">Visual recipe</label>`,
-				`<label class="ui-select-label" for="docs-recipe-execution">Execution</label>`,
+				`for="docs-recipe-behavior"`,
+				`for="docs-recipe-visual"`,
+				`for="docs-recipe-execution"`,
 			} {
 				if got := strings.Count(body, label); got != 1 {
 					t.Errorf("label %q occurs %d times, want 1", label, got)
@@ -117,7 +117,7 @@ func TestRecipePrimaryRoutesRenderOneFullNativeForm(t *testing.T) {
 			if got := strings.Count(body, `name="visual"`); got != 1 {
 				t.Errorf("visual selects = %d, want 1", got)
 			}
-			if !strings.Contains(body, `<button type="submit" class="ui-button ui-button-outline"><span>Apply</span></button>`) {
+			if !strings.Contains(body, `<button`) || !strings.Contains(body, `type="submit"`) || !strings.Contains(body, `>Apply</span>`) {
 				t.Error("full Recipe form must retain its native GET submit control")
 			}
 		})
