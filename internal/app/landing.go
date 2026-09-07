@@ -17,6 +17,7 @@ type landingView struct {
 	FeaturesHeading sectionHeadingView
 	Features        []featureCardView
 	Split           *splitView
+	Agent           *splitView
 	Demo            *landingDemoView
 	Recipes         *landingRecipesView
 	FAQ             *landingFAQView
@@ -104,7 +105,7 @@ func marketingLanding() landingView {
 			Subtitle: "Open-code components, semantic HTML, token themes, and server-first flows for HTML-first applications.",
 			CTAs: []buttonView{
 				{Label: "Install gelium-ui", Variant: "primary", Href: "#landing-install"},
-				{Label: "Browse components", Variant: "secondary", Href: "/components/button"},
+				{Label: "Give this to your LLM", Variant: "secondary", Href: "https://skills.sh/nahuweb/gelium-ui/install-gelium"},
 			},
 		},
 		Claims: []string{
@@ -161,6 +162,21 @@ func marketingLanding() landingView {
 /* Optional */
 // gelium.js — toast + 422 helper</code></pre>`,
 			),
+		},
+		Agent: &splitView{
+			Eyebrow: "LLM context",
+			Title:   "Give your LLM the right instructions.",
+			Body:    "Gelium ships agent guidance so your LLM can follow the same HTML-first, token, accessibility, and server-contract rules as the library.",
+			CTA:     &buttonView{Label: "Open agent workflow", Variant: "secondary", Href: "https://skills.sh/nahuweb/gelium-ui/install-gelium"},
+			Media: template.HTML(`<pre class="ui-landing-code" tabindex="0"><code>Use Gelium UI.
+
+Read the project skill before writing UI.
+Keep the main flow functional without JavaScript.
+Use semantic HTML and --ui-* tokens.
+Validate with the Gelium UX checklist.
+
+Install skill:
+https://skills.sh/nahuweb/gelium-ui/install-gelium</code></pre>`),
 		},
 		Demo: &landingDemoView{
 			Heading: sectionHeadingView{

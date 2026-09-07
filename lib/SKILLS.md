@@ -22,6 +22,7 @@ FEED / JOURNEY / MEDIA / SKEL) is in `llms-ux.txt`.
 | 12 | `12-wireframe-approval.md` | conditional approval gate for new screens, flows, and substantial redesigns |
 | 13 | `13-reference-selection.md` | semantic section/component reference selection before wireframes |
 | 14 | `14-component-implementation.md` | new component contract, TDD, ownership, no-JS, and verification |
+| 15 | `15-install-and-use.md` | install the npm package, install agent guidance, and compose a consumer app |
 
 ## Proportional workflow and records
 
