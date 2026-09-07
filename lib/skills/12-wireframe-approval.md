@@ -64,6 +64,7 @@ Change:
 Product job / audience:
 Existing route and contracts:
 Scope: new screen | new flow | substantial redesign
+Intent mode: new-product | redesign | visual-migration
 Section inventory: ordered regions and purpose
 Primary action and action hierarchy:
 Plan — intent wireframe:
@@ -81,34 +82,46 @@ disclosures, recovery, and owner-only areas. Do not spend the approval packet on
 exact colors, shadows, or pixel dimensions; apply skill 11 after structure is
 approved.
 
-## ASCII maps SCREEN blocks
+## Gelium structural ASCII wireframes
 
-Show the wireframe in the conversation **before** markup. ASCII must map the
-chosen SURFACE + SCREEN blocks from `skills/02` and `llms-ux.txt`, not a
-generic “pretty box” layout.
+Show the wireframe in the conversation **before** markup. ASCII is a structural
+contract, not a generic “pretty box” or a substitute for `SECTION-CONTRACT`.
+It must map the chosen SURFACE + SCREEN blocks from `skills/02` and
+`llms-ux.txt`, and must use real product content or explicit placeholders.
 
-- Name the SCREEN type on the wireframe (`settings`, `list`, `hub`, `form`, …)
-  and draw only its blocks. `settings` = grouped **list rows** (optional
-  switch/select). `hub` = title, short context, **one** primary button.
-- One highlighted primary action per page. Row navigation is a link/chevron,
-  never a repeated primary button (`[ abrir ]`, `Save` on every row).
-- Sections are headings + purpose, not cards. A card is a repeated instance,
-  not a section border (`skills/10`).
-- Desktop and mobile share the same regions and reading order. Narrow stacks
-  (`NARROW`). Do not invent a second desktop pattern (stretched mobile list,
-  extra centered column, marketing two-column) unless Architect records a real
-  container/token reason.
-- `DATA-LIST` rows: title + little meta + trailing control. Use the list
-  anatomy and a Gelium `.ui-icon` from the allowlist (`chevron_right`, not
-  a typed `›`).
-- Before consumer CSS, map each adjacent pair to the spacing table in
-  `skills/01-foundations.md`. Do not put one `gap` on a page wrapper when
-  children mix title→metadata, group→group, and section→section.
-- Label existing chrome as unchanged when it is out of scope. Do not redraw
-  the product header as if it were this page.
+For every design-gated screen, include all of the following:
 
-Bad: two cards, seven `[ abrir ]` buttons, a full-width dotted leader line.
-Good: H1 + context, H2 groups, `ui-list` rows with supporting text and `›`.
+1. **Screen identity** — URL, SURFACE, SCREEN type, user job, one primary action,
+   and relevant `JOURNEY-*`, `DATA-*`, and `FEED-*` IDs.
+2. **Global shell** — header/navigation, current-location treatment, utility or
+   account actions when applicable, and footer. Mark each as `new`, `redesigned`,
+   `existing-unchanged`, or `out-of-scope`. An unresolved shell decision blocks
+   approval; an existing shell still appears as a labelled band in the map.
+3. **Page structure** — numbered major regions in DOM/reading order, each with its
+   purpose, boundary, hierarchy, and primary/supporting action policy.
+4. **ASCII notation** — use `┌ ┐ └ ┘ │ ─` (or `+ - |`), `[Button text]` for
+   buttons, `[________________]` for inputs, and `→ Link text` for links. Keep
+   alignment and indentation consistent; distinguish interactive controls from
+   static content. A box does not automatically mean a card or a section.
+5. **Responsive maps** — show both `WIDE` and `NARROW` versions. Preserve the
+   same regions and reading order; show columns stacking and navigation reflow.
+   Use actual project breakpoints only when verified; do not invent pixel values.
+6. **States and recovery** — show rest, loading, empty, error, success, and
+   validation/partial states when applicable, with a visible way forward and a
+   no-JS path.
+7. **Technical and direction annotations** — map regions to registered Gelium
+   components, behavior patterns, tokens, selected theme/recipe/skin, copy and
+   locale constraints, media references, route/server behavior,
+   accessibility/focus order, and any deliberate mismatch or open decision.
+
+Use the sequence `entry → primary work → supporting content → recovery`. Keep
+one highlighted page-primary action. Row navigation is a link/chevron, never a
+repeated primary button. Before approval, map mixed spacing relationships to
+`skills/01-foundations.md` rather than using one wrapper `gap`.
+
+Bad: two generic cards, seven `[Open]` buttons, or a page map with no shell.
+Good: labelled shell + H1/context, purpose-bound regions, one primary action,
+wide/narrow maps, and state/recovery annotations.
 
 ## Visible packet
 
@@ -128,12 +141,17 @@ before markup or CSS.
 1. **Classify and Orient.** Name the route/trigger, read the required
    artifacts and hard contracts, and confirm whether an exemption applies.
    Completion: the route classification and reading attestations are recorded.
-2. **Plan.** Record job, audience, surface, states, non-goals, and the intent
-   wireframe. Completion: another person can understand what is proposed without
-   markup or invented component details.
+2. **Plan.** Record intent mode, job, audience, surface, states, non-goals,
+   section purposes, and the structural intent wireframe. For redesign, record
+   the current-state audit; for visual-migration, record preserved contracts.
+   Completion: another person can understand what is proposed without markup or
+   invented component details.
 3. **Architect.** Inspect route, data, permissions, templates, components, and
-   server/no-JS behavior; produce the buildable wireframe and section/component
-   mapping. Completion: material incompatibilities are resolved or escalated.
+   server/no-JS behavior; first resolve Gelium theme/recipe/skin, registered
+   interaction behaviors, copy/locales, and MEDIA-* direction. Then produce the
+   buildable wireframe and section/component mapping. Completion: material
+   incompatibilities are resolved or escalated.
+
 4. **Request a decision.** Show the buildable wireframe in the conversation,
    then record `approved`, `changes-requested`, `declined`, or bounded
    `exception`, with date/author and packet version. Completion: gated work has
@@ -190,8 +208,11 @@ existing Gelium contracts, and keep the primary flow functional with JS
 - [ ] Gated work has a visible packet in conversation and an approved packet before markup.
 - [ ] Exempt work is not delayed by an unnecessary approval ceremony.
 - [ ] Any intentional bypass is recorded as an explicit exception with bounded scope.
-- [ ] Packet covers desktop/mobile order, actions, states, recovery, accessibility,
-      no-JS behavior, and DESIGN-MEMORY reuse.
+- [ ] Packet covers intent mode, current-state audit when applicable, desktop/mobile
+  order, section contracts, Gelium behavior direction, theme/recipe/skin,
+  copy/locales, media, states, recovery, accessibility, no-JS behavior, and
+  DESIGN-MEMORY reuse.
+
 - [ ] Rendered implementation matches the approved structure or records a
       material deviation and decision.
 - [ ] Skills 07, 09, and 11 verification is complete.

@@ -245,7 +245,13 @@ func TestConsumerDesignTemplatesRender(t *testing.T) {
 	}
 	for _, contract := range []string{
 		"Screen inventory",
+		"Design intent",
+		"Current-state audit",
 		"Chrome and navigation",
+		"Shell scope",
+		"Narrow behavior",
+		"Visual and interaction direction",
+		"Media direction",
 		"Anti-slop checklist",
 		"theme-neubrutalism",
 	} {

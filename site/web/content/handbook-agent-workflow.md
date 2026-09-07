@@ -40,16 +40,29 @@ Do **not** open-ended self-QA loops. Fixed passes:
 
 | Pass | ID | Goal | Exit when |
 | --- | --- | --- | --- |
-| **1. Brief** | `WF-BRIEF` | Plain-language audience, job, outcome, scope; generate/read PRODUCT.md + DESIGN.md and ask only missing decisions | Job sentence + surface mode or explicit open decision |
-| **2. Shape** | `WF-SHAPE` | Screen type, journey, data pattern, FEED plan — **no markup yet** | IDs listed (SCREEN / JOURNEY / DATA / FEED) |
-| **3. Architecture** | `WF-ARCH` | Major-region purpose, hierarchy, action, revelation, and recovery — **no components yet** | Every major region has a `SECTION-CONTRACT` ([Page + section architecture](/docs/page-section-architecture)) |
-| **4. Build** | `WF-BUILD` | Partials, theme, server contracts | Renders; happy path works |
-| **5. Audit** | `WF-AUDIT` | Technical + contract checks, including finite `WF-SECTION-AUDIT` (a11y basics, responsive, FEED/DoD) | Detector script + checklist clean or waived with reason |
-| **6. Polish** | `WF-POLISH` | Align to theme, spacing tokens, copy (Content style) | One pass only — then stop |
+| **1. Brief** | `WF-BRIEF` | Plain-language audience, job, outcome, scope, and intent mode; generate/read PRODUCT.md + DESIGN.md and ask only missing decisions | Job sentence + surface mode or explicit open decision |
+| **2. Shape** | `WF-SHAPE` | Screen type, journey, data pattern, FEED plan, and current-state audit when applicable — **no markup yet** | IDs listed (SCREEN / JOURNEY / DATA / FEED) |
+| **3. Architecture** | `WF-ARCH` | Major-region purpose, hierarchy, action, revelation, recovery, and structural wireframe — **no components yet** | Every major region has a `SECTION-CONTRACT` ([Page + section architecture](/docs/page-section-architecture)) |
+| **4. Direction** | `WF-DIRECTION` | Gelium theme, visual recipe/skin, registered interaction behaviors, copy/locales, and MEDIA-* direction | Direction is recorded and layout-affecting choices are reflected in the buildable packet |
+| **5. Build** | `WF-BUILD` | Approved partials, theme/recipe, behavior, copy, media, and server contracts | Renders; happy path works |
+| **6. Audit** | `WF-AUDIT` | Technical + contract checks, including finite `WF-SECTION-AUDIT` (a11y basics, responsive, FEED/DoD) | Detector script + checklist clean or waived with reason |
+| **7. Polish** | `WF-POLISH` | Align to theme, spacing tokens, copy (Content style) | One pass only — then stop |
 | **Harden** (as needed) | `WF-HARDEN` | Empty/error/i18n overflow, edge cases | Edge paths covered |
 | **Onboard** (as needed) | `WF-ONBOARD` | First-run + empty activation | Empty has CTA |
 
-`shape` owns discovery; `architecture` contracts major regions; `build` owns code; `audit` is evidence; `polish` is alignment — not a redesign.
+`shape` owns discovery; `architecture` contracts major regions; `direction` chooses Gelium behavior and visual treatment; `build` owns code; `audit` is evidence; `polish` is alignment — not a redesign.
+
+### Structural wireframes
+
+For every design-gated screen, show a clean ASCII wireframe before markup. It
+must include the global shell (header/navigation and footer, including bands
+marked `existing-unchanged`), numbered purpose-bound regions, one primary
+action, both `WIDE` and `NARROW` layouts, and state/recovery annotations.
+Mark shell decisions as new, redesigned, existing, or out of scope; an
+unresolved shell decision blocks approval. Use the notation and technical
+annotation rules in `skills/12-wireframe-approval.md`. ASCII communicates
+structure and reading order, not pixel polish or a generic collection of
+cards.
 
 ## Anti-slop (Gelium-aware)
 

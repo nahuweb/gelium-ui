@@ -6,29 +6,46 @@
     gap: 1rem;
     flex-wrap: wrap;
     padding: 1rem clamp(1rem, 4vw, 4rem);
-    border-bottom: var(--ui-border-width-1) var(--ui-border-style-solid) var(--ui-color-border);
+    border-bottom: var(--ui-border-width-1) var(--ui-border-style-solid)
+      var(--ui-color-border);
     background: var(--ui-color-surface);
     box-shadow: var(--ui-shadow-1);
     position: relative;
   }
-  .brand { font: var(--ui-type-title-lg); letter-spacing: var(--ui-type-title-lg-letter-spacing); text-decoration: none; }
-  .site-header-primary { display: flex; flex-wrap: wrap; gap: .25rem 1rem; }
-  .site-header nav a { color: var(--ui-color-primary); font: var(--ui-type-label-lg); letter-spacing: var(--ui-type-label-lg-letter-spacing); }
-  .site-header-mobile-menu { display: none; }
+  .brand {
+    font: var(--ui-type-title-lg);
+    letter-spacing: var(--ui-type-title-lg-letter-spacing);
+    text-decoration: none;
+  }
+  .site-header-primary {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.25rem 1rem;
+  }
+  .site-header nav a {
+    color: var(--ui-color-primary);
+    font: var(--ui-type-label-lg);
+    letter-spacing: var(--ui-type-label-lg-letter-spacing);
+  }
+  .site-header-mobile-menu {
+    display: none;
+  }
   .site-header-end {
     display: flex;
     align-items: center;
     flex-wrap: wrap;
-    gap: .75rem 1rem;
+    gap: 0.75rem 1rem;
     margin-inline-start: auto;
   }
-  .site-header .ui-theme-switcher { margin-inline-start: 0; }
+  .site-header .ui-theme-switcher {
+    margin-inline-start: 0;
+  }
 
   /* Theme direction switcher: native select in a 0-JS GET form. */
   .ui-theme-switcher {
     display: inline-flex;
     align-items: center;
-    gap: .5rem;
+    gap: 0.5rem;
     margin-inline-start: auto;
   }
   .ui-theme-switcher-label {
@@ -37,8 +54,9 @@
     color: var(--ui-color-fg-muted);
   }
   .ui-theme-switcher-select {
-    padding: .25rem .625rem;
-    border: var(--ui-border-width-1) var(--ui-border-style-solid) var(--ui-color-border);
+    padding: 0.25rem 0.625rem;
+    border: var(--ui-border-width-1) var(--ui-border-style-solid)
+      var(--ui-color-border);
     border-radius: var(--ui-radius-sm);
     background: var(--ui-color-surface-container, var(--ui-color-surface));
     color: var(--ui-color-fg);
@@ -46,8 +64,9 @@
     letter-spacing: var(--ui-type-label-md-letter-spacing);
   }
   .ui-theme-switcher-submit {
-    padding: .25rem .625rem;
-    border: var(--ui-border-width-1) var(--ui-border-style-solid) var(--ui-color-border);
+    padding: 0.25rem 0.625rem;
+    border: var(--ui-border-width-1) var(--ui-border-style-solid)
+      var(--ui-color-border);
     border-radius: var(--ui-radius-sm);
     background: var(--ui-color-surface-container, var(--ui-color-surface));
     color: var(--ui-color-fg);
@@ -66,9 +85,15 @@
     color: var(--ui-color-fg-muted);
     flex: none;
   }
-  .ui-scheme-icon-moon { display: none; }
-  .theme-dark .ui-scheme-icon-sun { display: none; }
-  .theme-dark .ui-scheme-icon-moon { display: inline-block; }
+  .ui-scheme-icon-moon {
+    display: none;
+  }
+  .theme-dark .ui-scheme-icon-sun {
+    display: none;
+  }
+  .theme-dark .ui-scheme-icon-moon {
+    display: inline-block;
+  }
 
   /* Recipe GET form: compose ui-select + ui-button. This sheet is spacing/width
      only so the chrome does not invent a third select/button skin. */
@@ -83,34 +108,31 @@
   }
   .ui-recipe-switcher legend {
     padding: 0;
-    margin: 0 0 .375rem;
-    color: var(--ui-color-fg-muted);
-    font: var(--ui-type-label-md);
-    letter-spacing: var(--ui-type-label-md-letter-spacing);
+    margin: 0;
   }
   .ui-recipe-switcher-controls {
     display: flex;
     flex-wrap: wrap;
     align-items: flex-end;
-    gap: .75rem;
+    gap: 0.75rem;
   }
   .ui-recipe-switcher--compact .ui-select {
     width: 11rem;
   }
   .ui-recipe-switcher-advanced {
     display: grid;
-    gap: .75rem;
+    gap: 0.75rem;
     width: 100%;
   }
   .ui-recipe-switcher-summary {
-    margin: .375rem 0 0;
+    margin: 0.375rem 0 0;
     color: var(--ui-color-fg-muted);
     font: var(--ui-type-label-sm);
     letter-spacing: var(--ui-type-label-sm-letter-spacing);
   }
   .ui-recipe-switcher-help {
     max-width: 65ch;
-    margin: .5rem 0 0;
+    margin: 0.5rem 0 0;
     color: var(--ui-color-fg-muted);
     font: var(--ui-type-body-sm);
   }
@@ -125,53 +147,108 @@
     top: 0;
     transform: translateY(-100%);
     z-index: 20;
-    padding: .5rem 1rem;
+    padding: 0.5rem 1rem;
     border-radius: 0 0 var(--ui-radius-md) 0;
     background: var(--ui-color-primary);
     color: var(--ui-color-primary-fg);
     font: var(--ui-type-label-lg);
     text-decoration: none;
   }
-  .ui-skip-link:focus { transform: translateY(0); }
+  .ui-skip-link:focus {
+    transform: translateY(0);
+  }
 
   /* Home / non-shell: keep the centered content column utility. Shell routes
      override .docs-shell into a full-width two-pane frame (see docs-shell.css). */
   .docs-content,
-  main.docs-shell.docs-content { width: min(68rem, calc(100% - 2rem)); margin: 4rem auto; }
+  main.docs-shell.docs-content {
+    width: min(68rem, calc(100% - 2rem));
+    margin: 4rem auto;
+  }
   /* Prose measure and typography (readability contract): the docs text column
      caps lines at 65ch — the classic typographic measure (65-75ch standard;
      USWDS ~68ch, GOV.UK ~30em). ch is the correct unit for measure because it
      scales with the rendered font, so the column always carries the same
      character count. text-wrap: pretty avoids orphaned final lines;
      hyphens: auto gives per-language hyphenation from <html lang>. */
-  .prose { max-width: 65ch; hyphens: auto; }
+  .prose {
+    max-width: 65ch;
+    hyphens: auto;
+  }
   /* Vertical rhythm: every heading margin covers BOTH directions so a label
      (provenance, breadcrumb, h3 under h2) never collides with the next
      heading. h1 opens the article (margin below only); h2+ carry top and
      bottom margins sized by hierarchy. */
-  .prose h1 { margin: 0 0 1rem; font: var(--ui-type-display-sm); letter-spacing: var(--ui-type-display-sm-letter-spacing); }
-  .prose h2 { margin: 2.5rem 0 1rem; font: var(--ui-type-headline-sm); letter-spacing: var(--ui-type-headline-sm-letter-spacing); }
-  .prose h3 { margin: 1.75rem 0 .75rem; font: var(--ui-type-title-md); letter-spacing: var(--ui-type-title-md-letter-spacing); }
-  .prose h4 { margin: 1.25rem 0 .5rem; font: var(--ui-type-label-lg); letter-spacing: var(--ui-type-label-lg-letter-spacing); }
-  .prose p { color: var(--ui-color-fg-muted); line-height: 1.7; text-wrap: pretty; }
+  .prose h1 {
+    margin: 0 0 1rem;
+    font: var(--ui-type-display-sm);
+    letter-spacing: var(--ui-type-display-sm-letter-spacing);
+  }
+  .prose h2 {
+    margin: 2.5rem 0 1rem;
+    font: var(--ui-type-headline-sm);
+    letter-spacing: var(--ui-type-headline-sm-letter-spacing);
+  }
+  .prose h3 {
+    margin: 1.75rem 0 0.75rem;
+    font: var(--ui-type-title-md);
+    letter-spacing: var(--ui-type-title-md-letter-spacing);
+  }
+  .prose h4 {
+    margin: 1.25rem 0 0.5rem;
+    font: var(--ui-type-label-lg);
+    letter-spacing: var(--ui-type-label-lg-letter-spacing);
+  }
+  .prose p {
+    color: var(--ui-color-fg-muted);
+    line-height: 1.7;
+    text-wrap: pretty;
+  }
   /* Article provenance (Published · Updated · version · license · source) is a
      metadata line, not body copy: label type, muted ink, and breathing room
      before the title instead of colliding with it. */
-  .article-provenance { font: var(--ui-type-label-md); color: var(--ui-color-fg-muted); margin: 0 0 1.25rem; }
+  .article-provenance {
+    font: var(--ui-type-label-md);
+    color: var(--ui-color-fg-muted);
+    margin: 0 0 1.25rem;
+  }
   /* Balanced headings plus progressive leading trim: text-wrap: balance evens
      heading line breaks (Baseline 2024). text-box-trim/text-box-edge trim the
      visual leading around cap/alphabetic where supported (Chromium only for
      now); unsupported browsers ignore the pair, so this is a pure
      enhancement with today's layout as the fallback. */
-  .prose h1, .prose h2, .prose h3 { text-wrap: balance; text-box-trim: trim-both; text-box-edge: cap alphabetic; }
-  .hero-action { margin-top: 2rem; }
+  .prose h1,
+  .prose h2,
+  .prose h3 {
+    text-wrap: balance;
+    text-box-trim: trim-both;
+    text-box-edge: cap alphabetic;
+  }
+  .hero-action {
+    margin-top: 2rem;
+  }
 
   /* Landing hero: the home page presents Gelium UI above the fold with a
      larger display and a call to action, without changing the docs shell. */
-  .landing-hero h1 { font: var(--ui-type-display-lg); letter-spacing: var(--ui-type-display-lg-letter-spacing); max-width: 22ch; }
-  .landing-hero p { font-size: 1.125rem; max-width: 48ch; }
-  .prose ul { line-height: 1.8; }
-  .prose li code, .prose p code { padding: .125rem .375rem; border-radius: var(--ui-radius-xs); background: var(--ui-color-surface-container); font-size: .9em; }
+  .landing-hero h1 {
+    font: var(--ui-type-display-lg);
+    letter-spacing: var(--ui-type-display-lg-letter-spacing);
+    max-width: 22ch;
+  }
+  .landing-hero p {
+    font-size: 1.125rem;
+    max-width: 48ch;
+  }
+  .prose ul {
+    line-height: 1.8;
+  }
+  .prose li code,
+  .prose p code {
+    padding: 0.125rem 0.375rem;
+    border-radius: var(--ui-radius-xs);
+    background: var(--ui-color-surface-container);
+    font-size: 0.9em;
+  }
   /* Fenced code blocks (markdown + chroma highlighting): bordered mono block
      with a muted header line. Token-driven, scrolls horizontally on narrow
      screens so long lines never break the measure. */
@@ -179,35 +256,98 @@
     margin: 1rem 0;
     padding: 1rem 1.25rem;
     overflow-x: auto;
-    border: var(--ui-border-width-1) var(--ui-border-style-solid) var(--ui-color-border);
+    border: var(--ui-border-width-1) var(--ui-border-style-solid)
+      var(--ui-color-border);
     border-radius: var(--ui-radius-sm);
     background: var(--ui-color-surface-container);
     color: var(--ui-color-fg);
     font-family: var(--ui-font-mono, ui-monospace, monospace);
-    font-size: .875rem;
+    font-size: 0.875rem;
     line-height: 1.6;
   }
-  .prose pre code { background: none; padding: 0; font-size: .875rem; }
+  .prose pre code {
+    background: none;
+    padding: 0;
+    font-size: 0.875rem;
+  }
   /* Chroma syntax highlighting classes (server-rendered, no JS): token
      colors derived from the theme surface/primary/secondary tokens so the
      palette stays theme-driven instead of a hardcoded editor theme. */
-  .prose .chroma { color: var(--ui-color-fg); }
-  .prose .chroma .k, .prose .chroma .kd, .prose .chroma .kn, .prose .chroma .kr { color: var(--ui-color-primary); font-weight: 600; }
-  .prose .chroma .s, .prose .chroma .s1, .prose .chroma .s2, .prose .chroma .sd, .prose .chroma .sb, .prose .chroma .sc, .prose .chroma .se { color: var(--ui-color-code-string); }
-  .prose .chroma .c, .prose .chroma .c1, .prose .chroma .cm, .prose .chroma .c2 { color: var(--ui-color-fg-muted); font-style: italic; }
-  .prose .chroma .na, .prose .chroma .nx { color: var(--ui-color-primary); }
-  .prose .chroma .nt { color: var(--ui-color-code-string); }
-  .prose .chroma .p, .prose .chroma .o { color: var(--ui-color-fg-muted); }
-  .prose .chroma .mi, .prose .chroma .mf, .prose .chroma .m, .prose .chroma .kc, .prose .chroma .kt { color: var(--ui-color-primary); }
+  .prose .chroma {
+    color: var(--ui-color-fg);
+  }
+  .prose .chroma .k,
+  .prose .chroma .kd,
+  .prose .chroma .kn,
+  .prose .chroma .kr {
+    color: var(--ui-color-primary);
+    font-weight: 600;
+  }
+  .prose .chroma .s,
+  .prose .chroma .s1,
+  .prose .chroma .s2,
+  .prose .chroma .sd,
+  .prose .chroma .sb,
+  .prose .chroma .sc,
+  .prose .chroma .se {
+    color: var(--ui-color-code-string);
+  }
+  .prose .chroma .c,
+  .prose .chroma .c1,
+  .prose .chroma .cm,
+  .prose .chroma .c2 {
+    color: var(--ui-color-fg-muted);
+    font-style: italic;
+  }
+  .prose .chroma .na,
+  .prose .chroma .nx {
+    color: var(--ui-color-primary);
+  }
+  .prose .chroma .nt {
+    color: var(--ui-color-code-string);
+  }
+  .prose .chroma .p,
+  .prose .chroma .o {
+    color: var(--ui-color-fg-muted);
+  }
+  .prose .chroma .mi,
+  .prose .chroma .mf,
+  .prose .chroma .m,
+  .prose .chroma .kc,
+  .prose .chroma .kt {
+    color: var(--ui-color-primary);
+  }
   /* Markdown tables (GFM): bordered rows and muted header, scannable with
      the same token rhythm as the rest of the prose. The wrapper keeps wide
      tables (e.g. token dictionaries) scrollable on small screens instead of
      breaking the measure. */
-  .prose table { width: 100%; border-collapse: collapse; font-size: .9375rem; }
-  .prose th, .prose td { padding: .5rem .75rem; border-bottom: 1px solid var(--ui-color-border); text-align: left; vertical-align: top; }
-  .prose thead th { font-weight: 600; border-bottom-width: 2px; }
-  .prose table code { background: none; padding: 0; font-size: .9em; }
-  @media (max-width: 48rem) { .prose table { display: block; overflow-x: auto; } }
+  .prose table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.9375rem;
+  }
+  .prose th,
+  .prose td {
+    padding: 0.5rem 0.75rem;
+    border-bottom: 1px solid var(--ui-color-border);
+    text-align: left;
+    vertical-align: top;
+  }
+  .prose thead th {
+    font-weight: 600;
+    border-bottom-width: 2px;
+  }
+  .prose table code {
+    background: none;
+    padding: 0;
+    font-size: 0.9em;
+  }
+  @media (max-width: 48rem) {
+    .prose table {
+      display: block;
+      overflow-x: auto;
+    }
+  }
   /* Demo preview surface: flex-wrap composition with an internal horizontal
      overflow safety net. Children get min-width: 0 so intrinsic min widths
      (wide tables, chat demos, chip rows) can shrink instead of pushing the
@@ -223,7 +363,8 @@
     margin: 2rem 0;
     padding: 2rem;
     overflow-x: auto;
-    border: var(--ui-border-width-1) var(--ui-border-style-solid) var(--ui-color-border);
+    border: var(--ui-border-width-1) var(--ui-border-style-solid)
+      var(--ui-color-border);
     border-radius: var(--ui-radius-lg);
     background: var(--ui-color-surface);
     box-shadow: var(--ui-shadow-1);
@@ -252,7 +393,8 @@
     display: block;
     margin: 2rem 0;
     padding: 1.5rem;
-    border: var(--ui-border-width-1) var(--ui-border-style-solid) var(--ui-color-border);
+    border: var(--ui-border-width-1) var(--ui-border-style-solid)
+      var(--ui-color-border);
     border-radius: var(--ui-radius-lg);
     background: var(--ui-color-surface);
     box-shadow: var(--ui-shadow-1);
@@ -263,23 +405,37 @@
     align-items: start;
     gap: 2rem;
   }
-  .text-field-preview .ui-text-field { width: 100%; }
+  .text-field-preview .ui-text-field {
+    width: 100%;
+  }
 
   @media (max-width: 48rem) {
-    .site-header { align-items: center; }
-    .site-header-primary { display: none; }
-    .site-header-mobile-menu { display: block; margin-inline-start: auto; }
+    .site-header {
+      align-items: center;
+    }
+    .site-header-primary {
+      display: none;
+    }
+    .site-header-mobile-menu {
+      display: block;
+      margin-inline-start: auto;
+    }
     .site-header-mobile-menu > summary {
       cursor: pointer;
       list-style: none;
-      padding: .625rem .75rem;
-      border: var(--ui-border-width-1) var(--ui-border-style-solid) var(--ui-color-border);
+      padding: 0.625rem 0.75rem;
+      border: var(--ui-border-width-1) var(--ui-border-style-solid)
+        var(--ui-color-border);
       border-radius: var(--ui-radius-sm);
       color: var(--ui-color-primary);
       font: var(--ui-type-label-lg);
     }
-    .site-header-mobile-menu > summary::-webkit-details-marker { display: none; }
-    .site-header-mobile-menu[open] > summary { background: var(--ui-color-surface-container, var(--ui-color-surface)); }
+    .site-header-mobile-menu > summary::-webkit-details-marker {
+      display: none;
+    }
+    .site-header-mobile-menu[open] > summary {
+      background: var(--ui-color-surface-container, var(--ui-color-surface));
+    }
     .site-header-mobile-menu nav {
       position: absolute;
       inset-block-start: 100%;
@@ -287,15 +443,20 @@
       z-index: 2;
       display: flex;
       flex-direction: column;
-      gap: .25rem;
+      gap: 0.25rem;
       width: min(20rem, calc(100vw - 2rem));
-      padding: .75rem;
-      border: var(--ui-border-width-1) var(--ui-border-style-solid) var(--ui-color-border);
+      padding: 0.75rem;
+      border: var(--ui-border-width-1) var(--ui-border-style-solid)
+        var(--ui-color-border);
       border-block-start: 0;
       background: var(--ui-color-surface);
       box-shadow: var(--ui-shadow-2);
     }
-    .site-header-mobile-menu nav a { padding: .625rem .75rem; }
-    .site-header-end { margin-inline-start: .75rem; }
+    .site-header-mobile-menu nav a {
+      padding: 0.625rem 0.75rem;
+    }
+    .site-header-end {
+      margin-inline-start: 0.75rem;
+    }
   }
 }

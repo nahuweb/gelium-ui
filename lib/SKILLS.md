@@ -38,9 +38,10 @@ ROUTE → ORIENT → PLAN → ARCHITECT → APPROVE → BUILD → AUDIT → RELE
 ```
 
 Orient reads product/design artifacts, vocabulary, registry, and hard contracts.
-Plan produces the job, audience, states, and an intent wireframe. Architect
+Plan selects `new-product`, `redesign`, or explicit `visual-migration`, then produces the job, audience, states, section purposes, and an intent wireframe. Redesign records a current-state audit; visual migration records preserved UX and server contracts. Architect
 checks real routes, data, permissions, templates, components, and no-JS/server
-contracts before producing the buildable wireframe for approval. Prebuild
+contracts, then resolves Gelium behavior patterns, theme/recipe/skin, copy/locales,
+and MEDIA-* direction before producing the buildable wireframe for approval. Prebuild
 records decisions and a criteria plan; rendered evidence belongs in Audit after
 Build. Start records from `skills/templates/gate-ledger.md` and
 `skills/templates/wireframe-approval-packet.md`. For design-gated work the
@@ -52,7 +53,8 @@ or authority to commit, publish, or deploy.
 
 For a design-gated change, keep the gates in order: foundations → surface →
 product reasoning → page/section → design criteria §1–§3 → conditional
-wireframe approval → registered components → tokens/skin → rendered design
+visual/interaction direction → conditional wireframe approval → registered components
+→ tokens/skin → rendered design
 criteria audit → usability → DoD. A direct-exempt change uses the narrowest
 relevant skills and checks. If `PRODUCT.md` or `DESIGN.md` is absent or
 incomplete in a consumer repo, run the plain-language brief before a
@@ -61,7 +63,7 @@ flow architecture.
 
 Protocol IDs: `ARCH-PRODUCT`, `ARCH-PAGE`, `ARCH-SECTION`, `ARCH-COMPONENTS`,
 `ARCH-TOKENS`, `SECTION-CONTRACT`, `SECTION-HIERARCHY`, `SECTION-ACTION`,
-`SECTION-REVELATION`, `SECTION-RECOVERY`, `WF-ARCH`, `WF-SECTION-AUDIT`.
+`SECTION-REVELATION`, `SECTION-RECOVERY`, `WF-CURRENT-STATE`, `WF-DIRECTION`, `WF-ARCH`, `WF-SECTION-AUDIT`.
 
 ## Description-to-name resolver
 

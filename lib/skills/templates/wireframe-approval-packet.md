@@ -13,10 +13,14 @@ Date:
 Author:
 Route: design-gated
 Scope: new screen | new flow | substantial redesign
+Intent mode: new-product | redesign | visual-migration
 Existing route and contracts:
 Product job / audience:
 Primary action:
 Non-goals:
+Shell scope: new | redesigned | existing-unchanged | out-of-scope
+Header / navigation decision:
+Footer decision:
 ```
 
 ## Orient receipts
@@ -37,13 +41,17 @@ data, media metadata, or pixel polish. ASCII maps SCREEN blocks from skill 02.
 
 ```text
 Screen / SURFACE:
+SCREEN type:
 User job and audience:
+Global shell treatment (header/navigation/footer):
 Major regions in reading order:
 Primary and supporting actions:
 States and recovery:
-Desktop structural wireframe:
-Mobile structural wireframe:
+ASCII notation and legend:
+WIDE structural wireframe:
+NARROW structural wireframe:
 Constraints and non-goals:
+Current-state audit or preserved-contract summary:
 ```
 
 ## Architect — buildable wireframe
@@ -55,12 +63,18 @@ for Build.
 ```text
 Route / handler / template:
 Data and permission boundary:
+Global shell mapping and unchanged/new boundary:
 Section inventory and SECTION-CONTRACT mapping:
+Gelium theme class and visual recipe/skin:
+Gelium behavior and state mapping:
+Copy, voice, and locale constraints:
+Media direction and MEDIA-* references:
 Component and token mapping:
 URL, form, POST+303, 422, and validation contracts:
 No-JS and accessibility behavior:
-Desktop buildable wireframe:
-Mobile buildable wireframe:
+WIDE buildable wireframe:
+NARROW buildable wireframe:
+State/recovery wireframes or annotations:
 Material mismatch, exception, or escalation:
 ```
 
@@ -69,7 +83,9 @@ Material mismatch, exception, or escalation:
 ```text
 Hierarchy and DOM order:
 Action hierarchy and boundaries:
-Responsive and class-routed theme intent:
+Responsive and class-routed theme/recipe intent:
+Interaction behavior and no-JS fallback:
+Copy/localization and media constraints:
 States and recovery:
 Accessibility and no-JS:
 Preserved contracts:

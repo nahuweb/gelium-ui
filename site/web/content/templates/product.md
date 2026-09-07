@@ -15,11 +15,34 @@ Answer these before filling the structured sections:
 
 The agent should turn these answers into the sections below, read them back, and ask only the follow-up questions needed to make a safe design decision.
 
+## Intent mode
+
+Choose one mode before defining screens. Existing design is evidence, not authority.
+
+- `new-product`: define the experience from the product problem and user job.
+- `redesign`: audit the current experience and propose evidence-based improvements.
+- `visual-migration`: preserve UX and contracts while adapting the approved structure to Gelium; use only when explicitly requested.
+
+- Selected mode: new-product | redesign | visual-migration
+- Why this mode: …
+- Evidence or user constraint: …
+
 ## Product outcome
 
 After using this product or slice, the user can:
 
 - …
+
+## Current-state audit (required for redesign; baseline for visual-migration)
+
+Use `N/A` for `new-product`. Do not silently treat the current UI as correct.
+
+- Current routes, templates, or references: …
+- Preserve: what already serves the user job or a required contract: …
+- Improve: observed friction, hierarchy, accessibility, responsive, or state gaps: …
+- Remove: noise, duplication, or behavior that conflicts with the outcome: …
+- Unknown: evidence still needed before proposing change: …
+- Evidence: user feedback, analytics, support issue, rendered screen, or repository path: …
 
 ## Audience and situations
 

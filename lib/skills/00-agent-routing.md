@@ -73,12 +73,12 @@ Only after the route is `design-gated`:
    route, permission, server, and no-JS contracts. If either consumer artifact is
    missing or incomplete, run the plain-language brief and record missing decisions
    honestly.
-2. **Plan** — state the user job, audience, SURFACE/SCREEN, primary action,
-   states, constraints, non-goals, and intent wireframe. Do not fabricate
+2. **Plan** — select `new-product`, `redesign`, or explicit `visual-migration`; state the user job, audience, SURFACE/SCREEN, primary action,
+   states, constraints, non-goals, current-state evidence when applicable, and intent wireframe. Do not fabricate
    components, data, identities, or media metadata.
 3. **Architect** — inspect the real route, handler, templates, data,
    permissions, shared chrome, references, components, responsive behavior,
-   themes, accessibility, and no-JS fallback. Produce the buildable packet and
+   themes, accessibility, and no-JS fallback. Resolve Gelium theme/recipe/skin, registered interaction behaviors, copy/locales, and MEDIA-* direction before producing the buildable packet and
    section contracts.
 4. **Approve** — show the complete desktop/mobile packet in the conversation.
    Record the approved scope, packet version, approver, date, and channel.

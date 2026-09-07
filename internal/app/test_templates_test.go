@@ -20,6 +20,9 @@ func parseTestTemplates(t *testing.T, patterns ...string) *template.Template {
 	// same func as buildTemplates() or ParseFS fails on an undefined function
 	// and the layout template never enters the set.
 	tmpl := template.New("test").Funcs(template.FuncMap{
+		"htmlCloseTag":        htmlCloseTag,
+		"htmlRootAttrs":       htmlRootAttrs,
+		"renderRecipeOptions": renderRecipeOptions,
 		"themePreloadFonts": func(themeClass, version string) template.HTML {
 			return themePreloadFonts(themeClass, version)
 		},

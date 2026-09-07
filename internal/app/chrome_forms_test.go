@@ -113,12 +113,12 @@ func TestChromeFormsPreserveEachOther(t *testing.T) {
 	}
 }
 
-// TestChromeFormsRenderSubmitButtons proves each native GET control has an
-// explicit no-JS fallback: Recipe and Appearance both submit without scripts.
+// TestChromeFormsRenderSubmitButtons keeps the native GET fallback in the
+// DOM while the compact header hides its submit affordance after enhancement.
 func TestChromeFormsRenderSubmitButtons(t *testing.T) {
 	body := getOKBody(t, "/docs")
-	if got := strings.Count(body, `<button type="submit"`); got != 2 {
-		t.Errorf("chrome submit buttons = %d, want 2 (Recipe + Appearance)", got)
+	if got := strings.Count(body, `<button type="submit"`); got != 1 {
+		t.Errorf("chrome submit buttons = %d, want 1 (Appearance fallback)", got)
 	}
 	for _, contract := range []string{
 		`<form class="ui-recipe-switcher ui-recipe-switcher--compact" method="get" data-chrome-form hx-boost="false" aria-label="Component recipe">`,
@@ -126,7 +126,6 @@ func TestChromeFormsRenderSubmitButtons(t *testing.T) {
 		`<label class="ui-select-label" for="docs-recipe-behavior">Behavior</label>`,
 		`<label class="ui-select-label" for="docs-recipe-visual">Visual recipe</label>`,
 		`ui-select ui-select-outlined`,
-		`ui-button ui-button-outline`,
 		`ui-switch`,
 		`name="behavior"`, `name="visual"`, `value="basecoat"`, `Apply`,
 	} {
@@ -143,8 +142,8 @@ func TestChromeFormsRenderSubmitButtons(t *testing.T) {
 // forget the other parameter (theme form forgetting scheme, or vice versa).
 func TestChromeFormsAlwaysCarryPreserveInputs(t *testing.T) {
 	body := getOKBody(t, "/docs")
-	if !strings.Contains(body, `<input type="hidden" name="scheme" value="">`) {
-		t.Error("theme form must always render its hidden scheme preserve input (empty value allowed)")
+	if !strings.Contains(body, `<input type="hidden" name="scheme" value="light">`) {
+		t.Error("recipe form must default its hidden scheme preserve input to light")
 	}
 	if !strings.Contains(body, `<input type="hidden" name="theme" value="">`) {
 		t.Error("scheme form must always render its hidden theme preserve input (empty value allowed)")

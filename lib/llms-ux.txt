@@ -13,7 +13,10 @@ Ethos: server HTML + gelium-ui tokens/themes; sourced criteria; JS optional. NOT
    fixes stay direct; new screens, flows, and substantial redesigns are a
    design-gated route; use OpenSpec only when cross-cutting ambiguity needs
    durable planning.
+0a. INTENT MODE: new-product | redesign | visual-migration. Existing UI is evidence,
+   not authority; visual-migration is explicit opt-in, not an inference.
 1. SURFACE mode: Operate | Read | Persuade | Experience (Operate default for tools)
+
 2. USER JOB: one sentence
 3. SCREEN TYPE: hub | list | detail | form | confirm | settings | queue | result
 4. ONE PRIMARY ACTION
@@ -25,6 +28,9 @@ Ethos: server HTML + gelium-ui tokens/themes; sourced criteria; JS optional. NOT
 10. NARROW: stack; min-width:0; no overflow-x:hidden on body
 11. DoD: /docs/ui-definition-of-done
 12. Read consumer PRODUCT.md + DESIGN.md when present. If either is absent, run the plain-language brief below before choosing screen architecture.
+13. SECTION CONTRACTS: define each major region by purpose before choosing components.
+14. VISUAL + INTERACTION DIRECTION: choose Gelium theme, visual recipe/skin,
+registered behavior patterns, copy/locales, and MEDIA-* references before Build.
 
 ## PLAIN-LANGUAGE BRIEF
 
@@ -37,17 +43,25 @@ Do not require product or design vocabulary from the user. Ask one question at a
 
 Turn the answers into a draft PRODUCT.md/DESIGN.md, read back the interpretation, and ask only conditional follow-ups (roles, objects/states, URLs, navigation, references, or success criteria). Accept `Unknown`, `To decide`, and `N/A` with a reason. Record assumptions and open decisions; never fill missing product intent with invented SaaS patterns.
 
-Before markup, the brief must establish a user job, a surface mode or an explicit unresolved choice, a visual direction or an explicit unresolved choice, and the scope boundary. Stop only when an unresolved decision would change page/flow architecture.
+Before markup, the brief must establish a user job, a surface mode or an explicit unresolved choice, a visual direction or an explicit unresolved choice, and the scope boundary. For `redesign`, it must also record a current-state audit; for `visual-migration`, it must record the preserved UX/server contracts. Stop only when an unresolved decision would change page/flow architecture.
 
 For design-gated work, use
 `ROUTE → ORIENT → PLAN → ARCHITECT → APPROVE → BUILD → AUDIT → RELEASE`.
 This sequence is required for design-gated work. Prebuild needs a brief,
 architecture packet, approval/exemption, and a prebuild criteria plan. Show
 the buildable wireframe in the conversation and wait; do not start markup
-because the user asked to make the page or said continua. Audit, after a
-candidate exists, records rendered audit evidence for wide/narrow,
-class-routed themes, states, no-JS, detector, and applicable checks. Start from
-`skills/templates/gate-ledger.md` and
+because the user asked to make the page or said continua. The wireframe must
+show the global shell (header/navigation and footer, including unchanged shell
+bands), ordered purpose-bound regions, one primary action, WIDE and NARROW
+layouts, states/recovery, and technical/no-JS annotations. An unresolved shell
+decision blocks approval. Use the structural ASCII protocol in
+`skills/12-wireframe-approval.md`; do not treat generic cards as sections.
+Audit, after a candidate exists, records rendered audit evidence for
+wide/narrow, class-routed themes, states, no-JS, detector, and applicable
+checks. After the structural intent wireframe, run a Visual + Interaction
+Direction pass for the Gelium theme/recipe/skin, registered behaviors,
+copy/locales, and media. Then produce the buildable wireframe and wait for
+approval. Start from `skills/templates/gate-ledger.md` and
 `skills/templates/wireframe-approval-packet.md`; attestations are evidence, not
 proof of cognitive reading or delivery authority.
 
@@ -64,8 +78,11 @@ proof of cognitive reading or delivery authority.
 
 | ID | Do | Don't |
 |---|---|---|
-| WF-BRIEF | plain-language job, audience, outcome, scope; derive mode/theme and ask only unresolved architecture decisions | skip questions, require jargon, or invent design decisions |
-| WF-SHAPE | list SCREEN/JOURNEY/DATA/FEED ids | write markup in shape |
+| WF-BRIEF | plain-language job, audience, outcome, scope, and intent mode | skip questions, require jargon, or invent design decisions |
+| WF-CURRENT-STATE | for redesign/migration, audit preserve/improve/remove/unknown with evidence | treat an existing screen as authoritative |
+| WF-SHAPE | list SCREEN/JOURNEY/DATA/FEED ids and section purposes | write markup in shape |
+| WF-DIRECTION | select Gelium theme/recipe/skin, registered behaviors, copy/locales, and MEDIA-* references | defer layout-affecting behavior or media until Build |
+
 | WF-ARCH | apply ARCH-PRODUCT → ARCH-PAGE → ARCH-SECTION; outline major regions and complete SECTION-CONTRACT before components | use cards, spacing, or CSS to invent a missing section purpose |
 | WF-BUILD | partials + server; page shells compose registered components | invent parallel design system or hand-roll nav/page shells |
 | WF-AUDIT | DoD + WF-SECTION-AUDIT + bash node_modules/@gelium/ui/scripts/ux-detect.sh | claim pass without checks |

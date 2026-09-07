@@ -10,9 +10,9 @@ incomplete, run the plain-language brief in `llms-ux.txt` before implementation.
 Accept `Unknown`, `To decide`, and `N/A` with a reason; record assumptions and
 open decisions. Do not silently invent product intent, chrome, or visual direction.
 
-Proceed when the brief establishes the user job, scope boundary, and either the
+Proceed when the brief establishes the user job, scope boundary, intent mode (`new-product`, `redesign`, or explicit `visual-migration`), and either the
 relevant surface/theme decisions or an explicit decision to resolve them during
-Shape/Architecture. Stop only when an unresolved decision would change page or
+Shape/Architecture. Redesign also needs a current-state audit; visual migration needs preserved UX/server contracts. Stop only when an unresolved decision would change page or
 flow architecture.
 
 ## UI Definition of Done (product/structure/states/contracts)
@@ -26,6 +26,8 @@ flow architecture.
 **Structure**
 
 - [ ] Semantic HTML (native elements), logical heading order (H1 → H2 → H3).
+- [ ] Every major region has a purpose-bound `SECTION-CONTRACT` before component selection.
+- [ ] Gelium interaction behavior, theme/recipe/skin, copy/locales, and media direction are recorded before Build.
 - [ ] Page shell composes registered components (`ui-container`,
       `ui-navigation-bar`/drawer primitives). Custom shell CSS is limited to
       spacing/width — no hand-rolled nav headers or sticky shells.

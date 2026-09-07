@@ -196,11 +196,13 @@ func TestBlogPostsKeepSentencesUnder25Words(t *testing.T) {
 // direct navigation). It stays plain when no theme/scheme is selected.
 func TestBlogTopbarLinkKeepsChromeQuery(t *testing.T) {
 	body := getOKBody(t, "/components/button?theme=basecoat&scheme=dark")
-	if !strings.Contains(body, `class="ui-button ui-button-text docs-chrome-blog" href="/blog?scheme=dark&amp;theme=basecoat"`) {
+	if !strings.Contains(body, `class="ui-button ui-button-text docs-chrome-blog"`) ||
+		!strings.Contains(body, `href="/blog?scheme=dark&amp;theme=basecoat"`) {
 		t.Error("docs topbar Blog link must carry the chrome query under ?theme=/?scheme=")
 	}
 	plain := getOKBody(t, "/components/button")
-	if !strings.Contains(plain, `class="ui-button ui-button-text docs-chrome-blog" href="/blog"`) {
+	if !strings.Contains(plain, `class="ui-button ui-button-text docs-chrome-blog"`) ||
+		!strings.Contains(plain, `href="/blog"`) {
 		t.Error("docs topbar Blog link must stay plain without theme/scheme")
 	}
 	// The blog space itself still honors the chrome query on its own pages.

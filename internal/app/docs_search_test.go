@@ -7,17 +7,19 @@ import (
 	"testing"
 )
 
-// TestDocsSearchEnabledInTopbar proves the docs search input is a real,
+// TestDocsSearchEnabledInShell proves the docs search input is a real,
 // enabled control: a live GET form to the /docs hub (0-JS fallback submits
 // /docs?q=<term>) with no disabled state and no "coming soon" placeholder.
-func TestDocsSearchEnabledInTopbar(t *testing.T) {
+func TestDocsSearchEnabledInShell(t *testing.T) {
 	body := getOKBody(t, "/docs")
 	for _, contract := range []string{
 		`<form class="docs-search" method="get" action="/docs" role="search">`,
-		`id="docs-search" type="search" name="q"`,
+		`id="docs-search"`,
+		`type="search"`,
+		`name="q"`,
 	} {
 		if !strings.Contains(body, contract) {
-			t.Errorf("docs topbar search missing contract %q", contract)
+			t.Errorf("docs shell search missing contract %q", contract)
 		}
 	}
 	input := openingTagWithID(t, body, "input", "docs-search")
@@ -39,7 +41,7 @@ func TestDocsSearchEnabledInTopbar(t *testing.T) {
 // the entries match the real nav destinations.
 func TestDocsSearchIndexEmitted(t *testing.T) {
 	body := getOKBody(t, "/docs")
-	m := regexp.MustCompile(`<script type="application/json" id="docs-search-index">(.*?)</script>`).FindStringSubmatch(body)
+	m := regexp.MustCompile(`(?s)<script type="application/json" id="docs-search-index">(.*?)</script>`).FindStringSubmatch(body)
 	if len(m) != 2 {
 		t.Fatal("docs shell must emit the search index script")
 	}

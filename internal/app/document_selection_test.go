@@ -134,9 +134,9 @@ func TestNavigationSelectionIsSourceAware(t *testing.T) {
 			want: "/components/icon-button?scheme=dark&theme=basecoat",
 		},
 		{
-			name: "canonical selection is not sprayed onto ordinary docs",
+			name: "canonical selection follows ordinary docs navigation",
 			path: "/components/button?behavior=material&reference=baseui&skin=vercel&execution=native",
-			want: "/components/icon-button",
+			want: "/components/icon-button?behavior=material&execution=native&reference=baseui&skin=vercel",
 		},
 		{
 			name: "canonical selection stays in the recipe component context",

@@ -57,9 +57,62 @@
     gap: 0.75rem 1rem;
     margin-inline-start: auto;
   }
+  .docs-chrome-nav,
+  .docs-chrome-controls {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 0.75rem 1rem;
+  }
+  .docs-chrome-nav-link,
+  .docs-chrome-blog {
+    padding: 0;
+    border: 0;
+    background: transparent;
+    color: var(--ui-color-primary);
+    font: var(--ui-type-label-lg);
+    letter-spacing: var(--ui-type-label-lg-letter-spacing);
+    text-decoration: none;
+  }
+  .docs-chrome-nav-link:hover,
+  .docs-chrome-nav-link:focus-visible,
+  .docs-chrome-blog:hover,
+  .docs-chrome-blog:focus-visible {
+    text-decoration: underline;
+    text-underline-offset: 0.2em;
+  }
+  .docs-chrome-github {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding-inline-start: 1rem;
+    border-inline-start: var(--ui-border-width-1) var(--ui-border-style-solid)
+      var(--ui-color-border);
+    color: var(--ui-color-fg);
+    font: var(--ui-type-label-md);
+    text-decoration: none;
+  }
+  .docs-chrome-github:hover,
+  .docs-chrome-github:focus-visible {
+    color: var(--ui-color-primary);
+    text-decoration: underline;
+    text-underline-offset: 0.2em;
+  }
   .docs-chrome .ui-theme-switcher,
   .docs-chrome .ui-scheme-switcher {
     margin-inline-start: 0;
+  }
+  .docs-chrome .ui-scheme-switcher button[type="submit"] {
+    display: none;
+  }
+  @media (max-width: 47.999rem) {
+    .docs-chrome-end {
+      width: 100%;
+      margin-inline-start: 0;
+    }
+    .docs-chrome-github {
+      margin-inline-start: auto;
+    }
   }
   .docs-sidebar-desktop .docs-search,
   .docs-nav-mobile .docs-search {

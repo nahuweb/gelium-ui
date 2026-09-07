@@ -38,14 +38,38 @@ Check:
 - Every proposed exception names the failed token/component fit, the smallest
   safe scope, and how it remains compatible with existing Gelium contracts.
 
+## Visual + interaction direction
+
+After the structural wireframe and before the buildable wireframe, record the
+approved direction for the screen. This is not permission to redesign under
+polish; it is the decision layer that makes the Gelium composition concrete.
+
+- **Theme:** selected class-routed `theme-*` family and light/dark route.
+- **Visual recipe / skin:** existing project recipe, registered pattern, or an
+  explicit `none`; never invent a parallel token system.
+- **Interaction behavior:** registered Gelium component or pattern for each
+  disclosure, tab, accordion, dialog, select, validation, loading, feedback, and
+  recovery need, including the no-JS/server fallback.
+- **Copy and voice:** brand tone, terminology, labels, state messages, and words
+  to avoid; use realistic lengths before Build.
+- **Localization:** locales, fallback, expansion, pluralization, date/number, and
+  RTL considerations where applicable.
+- **Media:** `MEDIA-*` role, source/license, ratio, crop/focal point, alt or
+  transcript, wide/narrow behavior, loading, and fallback. Never invent metadata.
+
+If a behavior, recipe, theme, copy constraint, or media ratio changes hierarchy,
+section boundaries, or responsive reflow, update the buildable wireframe and ask
+for approval again.
+
 ## Criteria plan (prebuild)
 
 Before markup for a design-gated change, record the intended hierarchy, DOM
 order, primary/supporting actions, section boundaries, responsive intent,
-token/theme choices, applicable states, accessibility/no-JS path, preserved
-server contracts, and the `DESIGN-MEMORY` reuse decision. This plan is a
-prebuild decision record; it must not claim rendered evidence that cannot exist
-yet. Record any unresolved mismatch as an escalation or bounded exception.
+token/theme/recipe choices, interaction behaviors, copy/localization, media,
+applicable states, accessibility/no-JS path, preserved server contracts, and the
+`DESIGN-MEMORY` reuse decision. This plan is a prebuild decision record; it must
+not claim rendered evidence that cannot exist yet. Record any unresolved mismatch
+as an escalation or bounded exception.
 
 ## Rendered audit (postbuild)
 
@@ -145,8 +169,8 @@ user-built markup. Import `icon.css` (or the Gelium index that already
 includes it).
 
 If extract errors `unknown Material Symbol` or `unknown Tabler icon`, the
-name is not in that catalog — look it up on https://fonts.google.com/icons
-or https://tabler.io/icons, pick another name, or use text only. Do not paste
+name is not in that catalog — look it up on <https://fonts.google.com/icons>
+or <https://tabler.io/icons>, pick another name, or use text only. Do not paste
 a random SVG. The docs gallery still uses a small curated Material demo set
 (`scripts/copy-icons.mjs`); that is not the consumer catalog.
 
@@ -215,7 +239,7 @@ Then run `skills/09-usability-checklist.md` and
 ## Sources
 
 | Source | Use |
-|---|---|
+| --- | --- |
 | Gelium skills 01–10 | Existing tokens, architecture, contracts, accessibility, states, and DoD |
 | Material 3 and GOV.UK patterns | Role-based emphasis, density, resilient and inclusive service design |
 | Gelium registry and `lib/ui-vocabulary.md` | Reuse and canonical component naming before invention |

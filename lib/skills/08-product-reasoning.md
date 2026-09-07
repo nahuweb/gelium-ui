@@ -5,13 +5,32 @@ It finds MISSING product-level UX — events with no surface, feedback with no
 timing, jobs with no path — that screen-by-screen work silently skips. It feeds
 the DoD (`skills/07`); it does not replace it.
 
-Five steps. Each is enumeration or yes/no questions. If a step surfaces gaps,
+Six steps. Step 0 selects the relationship to any existing experience; the
+remaining steps are enumeration or yes/no questions. If a step surfaces gaps,
 name them and ask the user before designing around them.
+
+## Step 0 — Intent mode
+
+Choose exactly one mode before screen architecture. Existing UI is evidence, not
+a specification, and a reference is never permission to copy.
+
+| Mode | Discovery obligation | Change boundary |
+| --- | --- | --- |
+| `new-product` | derive the experience from the product outcome and user job | define the target from first principles and known contracts |
+| `redesign` | audit the current experience and classify `preserve`, `improve`, `remove`, or `unknown` with evidence | propose improvements, preserve valid contracts, and obtain approval for scope |
+| `visual-migration` | inventory current routes, structure, behavior, content, and contracts | keep UX stable while mapping the approved experience to Gelium; use only when explicitly requested |
+
+Record the selected mode, why it is appropriate, evidence, and scope boundary in
+`PRODUCT.md` and `DESIGN.md`. Never infer `visual-migration` merely because a
+screen already exists. For `redesign`, do not propose a target until the current
+state and its evidence are recorded. For `visual-migration`, still escalate
+critical accessibility, responsive, security, or contract failures instead of
+silently preserving them.
 
 ## Sources (prior art)
 
 | Topic | Source |
-|---|---|
+| --- | --- |
 | Canonical task/event inventory | [GOV.UK patterns: "Ask users for…" / "Help users to…"](https://design-system.service.gov.uk/patterns/) |
 | Notification inventory + importance grouping | [Material Design: notifications](https://m2.material.io/design/communication/notifications.html) |
 | Post-launch gap signals | [HEART framework](https://kerryrodden.com/heart/) — Goals→Signals→Metrics |
@@ -47,7 +66,7 @@ anywhere?* Those are the screens you were about to forget.
 Per event, pick one:
 
 | Timing | Use when |
-|---|---|
+| --- | --- |
 | Toast now | relevant only while the user is present (< 1s of attention) |
 | Badge + count on persistent chrome | user must act eventually; count > 0 |
 | Inbox on return | worth reading later, not urgent |
@@ -99,6 +118,7 @@ event × state now maps to a surface.
 
 ## Compact checklist
 
+0. Intent mode selected and evidence/scope boundary recorded?
 1. Events / actors / artifacts / lifecycle states enumerated?
 2. Every event × artifact × state mapped to a surface? Any data-model object
    with no view anywhere?

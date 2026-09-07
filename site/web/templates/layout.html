@@ -1,5 +1,5 @@
 {{define "layout"}}<!doctype html>
-<html lang="{{or .Meta.Lang "en"}}" class="{{.ThemeClass}}" data-gelium-reference="{{or .Reference "none"}}" data-gelium-skin="{{or .Skin "none"}}" data-gelium-contract="{{or .Contract "gelium"}}" data-gelium-scheme="{{or .Scheme "system"}}"{{if .DataTheme}} data-theme="{{.DataTheme}}"{{end}}>
+<html{{htmlRootAttrs .}}>
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
@@ -41,8 +41,6 @@
         <nav aria-label="Docs">{{template "docs-sidebar" .DocsNav}}</nav>
       </aside>
       <div class="docs-shell-main">
-        <main id="main-content" class="docs-shell-content">
-        {{if .Breadcrumb}}{{template "breadcrumb" .Breadcrumb}}{{end}}
         {{if .Banner}}{{template "banner" .Banner}}{{end}}
   {{else}}
   <header class="site-header">
@@ -59,9 +57,10 @@
   </header>
   {{if .Breadcrumb}}{{template "breadcrumb" .Breadcrumb}}{{end}}
   {{if .Banner}}{{template "banner" .Banner}}{{end}}
-  <main id="main-content" class="{{if .Landing}}ui-landing-main{{else if .Blog}}ui-blog-main{{else}}docs-shell docs-content{{end}}">
   {{end}}
-    {{if .Error}}{{template "error-state" .Error}}{{else if .Landing}}{{template "landing" .Landing}}{{else if .Blog}}{{template "blog" .Blog}}{{else}}<article class="prose">{{if .Provenance}}<p class="article-provenance">
+  <main id="main-content" class="{{if .DocsNav}}docs-shell-content{{else if .Landing}}ui-landing-main{{else if .Blog}}ui-blog-main{{else}}docs-shell docs-content{{end}}">
+    {{if .DocsNav}}{{if .Breadcrumb}}{{template "breadcrumb" .Breadcrumb}}{{end}}{{end}}
+        {{if .Error}}{{template "error-state" .Error}}{{else if .Landing}}{{template "landing" .Landing}}{{else if .Blog}}{{template "blog" .Blog}}{{else}}<article class="prose">{{if .Provenance}}<p class="article-provenance">
       {{if .Provenance.Published}}Published <time datetime="{{.Provenance.Published}}">{{.Provenance.Published}}</time>{{end}}{{if .Provenance.Modified}} · Updated <time datetime="{{.Provenance.Modified}}">{{.Provenance.Modified}}</time>{{end}}
       {{if .Provenance.Version}} · v{{.Provenance.Version}}{{end}}{{if .Provenance.LicenseURL}} · <a href="{{.Provenance.LicenseURL}}" rel="license">MIT License</a>{{end}}{{if .Provenance.Source}} · Source: {{.Provenance.Source}}{{end}}
     </p>{{end}}{{if .H1}}{{.H1}}{{end}}
@@ -133,4 +132,4 @@
   {{if .Footer}}{{template "footer" .Footer}}{{end}}
   {{template "toast-region"}}
 </body>
-</html>{{end}}
+{{htmlCloseTag}}{{end}}

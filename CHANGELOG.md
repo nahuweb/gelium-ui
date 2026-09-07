@@ -6,6 +6,18 @@ The format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/) and 
 
 ## [Unreleased]
 
+### Changed
+
+- **Documentation chrome**: the header now uses link-based navigation, keeps GitHub/version together, and preserves behavior, recipe, reference, skin, execution, and appearance selections across navigation.
+- **HTMX navigation**: compact recipe changes update the document without a full-page reload, preserve scroll position, and keep hidden fallback submit controls from causing layout shifts.
+- **Docs layout**: breadcrumbs now share the content container and remain aligned with the article reading measure.
+- **Gelium design discovery protocol**: design-gated work now distinguishes new products, evidence-based redesigns, and explicit visual migrations; records current-state findings, section contracts, Gelium behavior recipes, theme/skin direction, copy/locales, and media before final wireframe approval.
+- **Structural wireframe protocol**: design-gated screens now require labelled global shell bands, purpose-bound regions, WIDE/NARROW ASCII layouts, state/recovery annotations, and explicit shell decisions before approval.
+
+### Fixed
+
+- **Dark theme select contrast**: Neubrutalism and Vercel select text, labels, carets, borders, and native option menus now use readable dark-scheme colors.
+
 ## [0.6.6] — 2026-09-06
 
 ### Added

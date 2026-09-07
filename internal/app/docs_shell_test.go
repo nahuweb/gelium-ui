@@ -4,6 +4,7 @@ import (
 	"html"
 	"net/http"
 	"net/http/httptest"
+	"regexp"
 	"strings"
 	"testing"
 
@@ -46,7 +47,6 @@ func TestDocsShellFrameOnDocsAndComponents(t *testing.T) {
 					`ui-divider`,
 					`ui-text-field`,
 					`ui-button ui-button-text`,
-					`ui-button ui-button-outline`,
 					">" + lib.AssetsVersion + "<",
 					`Gelium UI`,
 					`type="search"`,
@@ -232,6 +232,16 @@ func TestDocsShellColorSchemeSwitcher(t *testing.T) {
 	})
 }
 
+func containsDocsNavHref(body, href string) bool {
+	pattern := `(?s)<a\s+class="ui-list-item-link(?:\s+is-current)?"\s+href="` + regexp.QuoteMeta(href) + `"`
+	return regexp.MustCompile(pattern).FindStringIndex(body) != nil
+}
+
+func countCurrentDocsNavLinks(body, href string) int {
+	pattern := `(?s)<a\s+class="ui-list-item-link\s+is-current"\s+href="` + regexp.QuoteMeta(href) + `"\s+aria-current="page"`
+	return len(regexp.MustCompile(pattern).FindAllStringIndex(body, -1))
+}
+
 func htmlClassSnippet(body string) string {
 	i := strings.Index(body, "<html")
 	if i < 0 {
@@ -269,19 +279,16 @@ func TestDocsShellSidebarPreservesTheme(t *testing.T) {
 		"/docs/content-style",
 		"/recipes/admin-resource",
 	} {
-		want := `class="ui-list-item-link" href="` + path + `?theme=basecoat"`
-		wantCurrent := `class="ui-list-item-link is-current" href="` + path + `?theme=basecoat"`
-		if !strings.Contains(body, want) && !strings.Contains(body, wantCurrent) {
+		if !containsDocsNavHref(body, path+"?theme=basecoat") {
 			t.Errorf("sidebar missing theme-preserving list href for %q", path)
 		}
 	}
 	// Active Button marker uses the themed href in both nav trees.
-	wantCurrent := `class="ui-list-item-link is-current" href="/components/button?theme=basecoat" aria-current="page"`
-	if got := strings.Count(body, wantCurrent); got != 2 {
+	if got := countCurrentDocsNavLinks(body, "/components/button?theme=basecoat"); got != 2 {
 		t.Fatalf("themed Button aria-current markers = %d, want 2", got)
 	}
 	// No bare list-item href for Button (would drop theme on the current item).
-	if strings.Contains(body, `class="ui-list-item-link is-current" href="/components/button" aria-current="page"`) {
+	if countCurrentDocsNavLinks(body, "/components/button") > 0 {
 		t.Error("current Button list link must not be a bare path under ?theme=basecoat")
 	}
 	// Breadcrumb non-current shell crumbs also keep theme.
@@ -321,8 +328,7 @@ func TestDocsShellChromeActivePeersAndIA(t *testing.T) {
 	t.Run("button peers not current dual nav", func(t *testing.T) {
 		body := getOKBody(t, "/components/button")
 		// Dual mobile+desktop nav: Button is current in both trees.
-		buttonCurrent := `class="ui-list-item-link is-current" href="/components/button" aria-current="page"`
-		if got := strings.Count(body, buttonCurrent); got != 2 {
+		if got := countCurrentDocsNavLinks(body, "/components/button"); got != 2 {
 			t.Fatalf("Button aria-current nav markers = %d, want 2 (mobile+desktop)", got)
 		}
 		// Actions peers must never carry aria-current="page".
@@ -333,12 +339,11 @@ func TestDocsShellChromeActivePeersAndIA(t *testing.T) {
 			"/components/segmented-button",
 			"/components/menu",
 		} {
-			if strings.Contains(body, `href="`+peer+`" aria-current="page"`) ||
-				strings.Contains(body, `href="`+peer+`"aria-current="page"`) {
+			if countCurrentDocsNavLinks(body, peer) > 0 {
 				t.Errorf("peer %q must not be aria-current=page", peer)
 			}
 			// Peer links exist but use the non-current list-item class.
-			if !strings.Contains(body, `class="ui-list-item-link" href="`+peer+`"`) {
+			if !containsDocsNavHref(body, peer) {
 				t.Errorf("sidebar missing non-current peer link %q", peer)
 			}
 		}
@@ -350,8 +355,7 @@ func TestDocsShellChromeActivePeersAndIA(t *testing.T) {
 
 	t.Run("docs hub current", func(t *testing.T) {
 		body := getOKBody(t, "/docs")
-		hubCurrent := `class="ui-list-item-link is-current" href="/docs" aria-current="page"`
-		if got := strings.Count(body, hubCurrent); got != 2 {
+		if got := countCurrentDocsNavLinks(body, "/docs"); got != 2 {
 			t.Fatalf("Documentation hub aria-current markers = %d, want 2", got)
 		}
 		if strings.Contains(body, `href="/components/button" aria-current="page"`) {

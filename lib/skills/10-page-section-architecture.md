@@ -15,7 +15,7 @@ decision.
 | `ARCH-PAGE` | Page/Surface | URL, SURFACE mode, SCREEN type, one primary action, JOURNEY/DATA/FEED IDs, chrome, and server/no-JS contract |
 | `ARCH-SECTION` | Section purpose | one purpose-bound contract for every major page region |
 | `ARCH-COMPONENTS` | Components | registered semantic primitives that fulfill each section contract |
-| `ARCH-TOKENS` | Tokens/Skin | existing semantic type, spacing, color, motion, and class-routed skin tokens |
+| `ARCH-TOKENS` | Tokens/Skin | existing semantic type, spacing, color, motion, and class-routed theme/recipe/skin tokens |
 
 The chain is:
 
@@ -45,8 +45,10 @@ Output / next move: What understanding or action the reader leaves with.
 Hierarchy: Entry, primary, supporting, or recovery; why it has that rank.
 Action policy: Primary / secondary / none; relation to the page’s single primary action.
 Revelation: Always visible / conditional server-rendered state / user-invoked disclosure; why.
-Composition: Semantic landmark or element plus registered Gelium components.
-State and recovery: Rest, loading, empty, error, success where applicable; no-JS behavior.
+    Composition: Semantic landmark or element plus registered Gelium components.
+    Interaction behavior: registered Gelium behavior/recipe, trigger, and no-JS/server fallback.
+    State and recovery: Rest, loading, empty, error, success where applicable; no-JS behavior.
+
 Boundary and rhythm: What belongs inside vs outside; relationship-based --ui-space-* gaps.
 Accessibility/content: heading/label/landmark, reading order, announcement, concise factual copy.
 Verification evidence: rendered-HTML assertions and mechanical checks that prove the contract.

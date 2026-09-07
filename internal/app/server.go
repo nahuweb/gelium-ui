@@ -256,6 +256,7 @@ const (
 	skinAlden        productSkin = "alden"
 	skinLinear       productSkin = "linear"
 	skinVercel       productSkin = "vercel"
+	skinNeubrutalism productSkin = "neubrutalism"
 )
 
 type documentSelection struct {
@@ -303,6 +304,7 @@ var visualRecipes = []visualRecipe{
 	{Value: "vercel", Label: "Vercel", Reference: "auto", Skin: skinVercel},
 	{Value: "alden", Label: "Alden", Reference: "auto", Skin: skinAlden},
 	{Value: "linear", Label: "Linear", Reference: "auto", Skin: skinLinear},
+	{Value: "neubrutalism", Label: "Neubrutalism", Reference: "auto", Skin: skinNeubrutalism},
 }
 
 func visualRecipeByValue(value string) (visualRecipe, bool) {
@@ -361,6 +363,8 @@ func normalizeSkin(raw string) (productSkin, bool) {
 		return skinLinear, true
 	case string(skinVercel):
 		return skinVercel, true
+	case string(skinNeubrutalism):
+		return skinNeubrutalism, true
 	default:
 		return "", false
 	}
@@ -499,11 +503,9 @@ func canonicalSelectionHref(path string, s documentSelection, execution accordio
 }
 
 // navigationSelection describes which *source* of selection is safe to carry
-// into links. Legacy selection is intentionally kept in legacy theme/scheme
-// form across ordinary IA. Canonical recipe fields only propagate inside the
-// recipe and gallery surfaces; every other page leaves canonical selection at
-// the document where the Recipe form submitted it instead of spraying a new
-// public query contract across the existing site.
+// into links. Legacy theme/scheme selections stay in their legacy query form;
+// canonical recipe selections stay canonical across the docs IA so sidebar
+// navigation does not silently reset behavior, visual recipe, or appearance.
 type navigationSelection struct {
 	themeSlug string
 	scheme    string
@@ -516,7 +518,7 @@ func recipeNavigationContext(path string) bool {
 	return path == "/components/accordion" || path == "/docs/themes/gallery"
 }
 
-func navigationSelectionFor(r *http.Request, path string) navigationSelection {
+func navigationSelectionFor(r *http.Request, _ string) navigationSelection {
 	if r == nil || r.URL == nil {
 		return navigationSelection{}
 	}
@@ -524,9 +526,6 @@ func navigationSelectionFor(r *http.Request, path string) navigationSelection {
 	n := navigationSelection{scheme: normalizeScheme(q.Get("scheme"))}
 	if theme, ok := themeBySlugOrClass(q.Get("theme")); ok {
 		n.themeSlug = theme.Slug
-		return n
-	}
-	if !recipeNavigationContext(path) {
 		return n
 	}
 	if q.Has("behavior") || q.Has("reference") || q.Has("skin") || q.Has("execution") {
@@ -644,6 +643,15 @@ func normalizeScheme(raw string) string {
 	default:
 		return ""
 	}
+}
+
+// recipeScheme makes recipe changes deterministic when no explicit appearance
+// has been chosen yet. The appearance switch still lets users opt into dark.
+func recipeScheme(raw string) string {
+	if scheme := normalizeScheme(raw); scheme != "" {
+		return scheme
+	}
+	return "light"
 }
 
 // themeBySlugOrClass resolves a ?theme= value to a catalog entry.
@@ -862,7 +870,7 @@ func recipeSwitcherFor(r *http.Request, selection documentSelection, execution a
 	}
 	return &recipeSwitcherView{
 		ID: id, Compact: compact, RenderInTopbar: compact, Behavior: string(b), Visual: visual,
-		Scheme: normalizeScheme(selection.Scheme), Execution: string(e), Contract: string(c),
+		Scheme: recipeScheme(selection.Scheme), Execution: string(e), Contract: string(c),
 		Behaviors: recipeBehaviorOptions(b), Visuals: visuals,
 		Executions: []profileOptionView{{Label: "Native baseline", Value: "native", Selected: e == accordionExecutionNative}, {Label: "HTMX optional server enhancement", Value: "htmx", Selected: e == accordionExecutionHTMX}},
 		Contracts: []profileOptionView{
@@ -1634,8 +1642,69 @@ type server struct {
 // (site/web), then the component library (lib). Template names are disjoint by
 // construction (registry_sync enforces the boundary), so the merge is a plain
 // superset; a collision would fail loudly here instead of silently shadowing.
+func renderRecipeOptions(options interface{}) template.HTML {
+	var b strings.Builder
+	appendOption := func(value, label string, selected bool) {
+		b.WriteString(`<option value="`)
+		b.WriteString(template.HTMLEscapeString(value))
+		b.WriteString(`"`)
+		if selected {
+			b.WriteString(` selected`)
+		}
+		b.WriteString(`>`)
+		b.WriteString(template.HTMLEscapeString(label))
+		b.WriteString(`</option>`)
+	}
+	switch values := options.(type) {
+	case []profileOptionView:
+		for _, option := range values {
+			appendOption(option.Value, option.Label, option.Selected)
+		}
+	case []recipeOptionView:
+		for _, option := range values {
+			appendOption(option.Value, option.Label, option.Selected)
+		}
+	}
+	return template.HTML(b.String())
+}
+
+func htmlCloseTag() template.HTML {
+	return template.HTML("</html>")
+}
+
+func htmlRootAttrs(v pageView) template.HTMLAttr {
+	lang := v.Meta.Lang
+	if lang == "" {
+		lang = "en"
+	}
+	reference := v.Reference
+	if reference == "" {
+		reference = "none"
+	}
+	skin := v.Skin
+	if skin == "" {
+		skin = "none"
+	}
+	contract := v.Contract
+	if contract == "" {
+		contract = "gelium"
+	}
+	scheme := v.Scheme
+	if scheme == "" {
+		scheme = "system"
+	}
+	attrs := ` lang="` + template.HTMLEscapeString(lang) + `" class="` + template.HTMLEscapeString(v.ThemeClass) + `" data-gelium-reference="` + template.HTMLEscapeString(reference) + `" data-gelium-skin="` + template.HTMLEscapeString(skin) + `" data-gelium-contract="` + template.HTMLEscapeString(contract) + `" data-gelium-scheme="` + template.HTMLEscapeString(scheme) + `"`
+	if v.DataTheme != "" {
+		attrs += ` data-theme="` + template.HTMLEscapeString(v.DataTheme) + `"`
+	}
+	return template.HTMLAttr(attrs)
+}
+
 func buildTemplates() *template.Template {
 	tmpl := template.New("geliumui").Funcs(template.FuncMap{
+		"htmlCloseTag":        htmlCloseTag,
+		"htmlRootAttrs":       htmlRootAttrs,
+		"renderRecipeOptions": renderRecipeOptions,
 		// themePreloadFonts emits self-hosted font <link rel="preload">
 		// tags for the resolved theme class (empty string when the theme
 		// ships no fonts). AssetsVersion is threaded through so font hrefs

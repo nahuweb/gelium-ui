@@ -1,65 +1,104 @@
-{{/*
-  Recipe selector: one native GET form, deliberately independent of JavaScript.
-  `visual` is a short-lived safe recipe key because one select cannot set both
-  reference and skin. The middleware resolves it and redirects to a canonical
-  behavior/reference/skin/scheme/contract/execution URL. The hidden reference/skin
-  fields document the canonical form shape and avoid any legacy `theme` conflict.
-  Fields dogfood registered Gelium select/button primitives; this wrapper is
-  spacing/width only.
-*/}}
-{{define "recipe-select-caret"}}
-<span class="ui-select-caret" aria-hidden="true"><svg focusable="false" viewBox="0 0 24 24" width="20" height="20" fill="currentColor"><path d="m7 10 5 5 5-5z"></path></svg></span>
-{{end}}
-{{define "recipe-switcher"}}
-<form class="ui-recipe-switcher{{if .Compact}} ui-recipe-switcher--compact{{else}} ui-recipe-switcher--full{{end}}" method="get" data-chrome-form hx-boost="false" aria-label="Component recipe">
+{{/* Recipe selector: one native GET form, deliberately independent of
+JavaScript. `visual` is a short-lived safe recipe key because one select cannot
+set both reference and skin. The middleware resolves it and redirects to a
+canonical behavior/reference/skin/scheme/contract/execution URL. The hidden
+reference/skin fields document the canonical form shape and avoid any legacy
+`theme` conflict. Fields dogfood registered Gelium select/button primitives;
+this wrapper is spacing/width only. */}} {{define "recipe-select-caret"}}
+<span class="ui-select-caret" aria-hidden="true"
+  ><svg
+    focusable="false"
+    viewBox="0 0 24 24"
+    width="20"
+    height="20"
+    fill="currentColor"
+  >
+    <path d="m7 10 5 5 5-5z"></path></svg
+></span>
+{{end}} {{define "recipe-switcher"}}
+<form
+  class="ui-recipe-switcher{{if .Compact}} ui-recipe-switcher--compact{{else}} ui-recipe-switcher--full{{end}}"
+  method="get"
+  data-chrome-form
+  hx-boost="true"
+  hx-target="body"
+  aria-label="Component recipe"
+>
   <fieldset>
-    <legend>{{if .Compact}}Recipe{{else}}Component recipe{{end}}</legend>
+    <legend class="sr-only">
+      {{if .Compact}}Recipe{{else}}Component recipe{{end}}
+    </legend>
     <div class="ui-recipe-switcher-controls">
       <div class="ui-select ui-select-outlined">
         <select id="{{.ID}}-behavior" name="behavior">
-          {{range .Behaviors}}<option value="{{.Value}}"{{if .Selected}} selected{{end}}>{{.Label}}</option>{{end}}
+          {{renderRecipeOptions .Behaviors}}
         </select>
         <label class="ui-select-label" for="{{.ID}}-behavior">Behavior</label>
         {{template "recipe-select-caret"}}
       </div>
       <div class="ui-select ui-select-outlined">
         <select id="{{.ID}}-visual" name="visual">
-          {{range .Visuals}}<option value="{{.Value}}"{{if .Selected}} selected{{end}}>{{.Label}}</option>{{end}}
+          {{renderRecipeOptions .Visuals}}
         </select>
-        <label class="ui-select-label" for="{{.ID}}-visual">Visual recipe</label>
+        <label class="ui-select-label" for="{{.ID}}-visual"
+          >Visual recipe</label
+        >
         {{template "recipe-select-caret"}}
       </div>
-      <input type="hidden" name="reference" value="auto">
-      <input type="hidden" name="skin" value="none">
-      <input type="hidden" name="scheme" value="{{.Scheme}}">
+      <input type="hidden" name="reference" value="auto" />
+      <input type="hidden" name="skin" value="none" />
+      <input type="hidden" name="scheme" value="{{.Scheme}}" />
       {{if .Compact}}
-      <input type="hidden" name="execution" value="{{.Execution}}">
-      <input type="hidden" name="contract" value="{{.Contract}}">
+      <input type="hidden" name="execution" value="{{.Execution}}" />
+      <input type="hidden" name="contract" value="{{.Contract}}" />
       {{else}}
       <details class="ui-recipe-switcher-advanced">
         <summary>Advanced</summary>
-        <p>Contract controls Gelium platform floors (for example touch targets). Source-faithful keeps third-party skin density; product CSS can still override either mode.</p>
+        <p>
+          Contract controls Gelium platform floors (for example touch targets).
+          Source-faithful keeps third-party skin density; product CSS can still
+          override either mode.
+        </p>
         <div class="ui-select ui-select-outlined">
           <select id="{{.ID}}-contract" name="contract">
-            {{range .Contracts}}<option value="{{.Value}}"{{if .Selected}} selected{{end}}>{{.Label}}</option>{{end}}
+            {{renderRecipeOptions .Contracts}}
           </select>
           <label class="ui-select-label" for="{{.ID}}-contract">Contract</label>
           {{template "recipe-select-caret"}}
         </div>
-        <p>Execution does not change behavior. HTMX is optional server enhancement; native details remains the baseline.</p>
+        <p>
+          Execution does not change behavior. HTMX is optional server
+          enhancement; native details remains the baseline.
+        </p>
         <div class="ui-select ui-select-outlined">
           <select id="{{.ID}}-execution" name="execution">
-            {{range .Executions}}<option value="{{.Value}}"{{if .Selected}} selected{{end}}>{{.Label}}</option>{{end}}
+            {{renderRecipeOptions .Executions}}
           </select>
-          <label class="ui-select-label" for="{{.ID}}-execution">Execution</label>
+          <label class="ui-select-label" for="{{.ID}}-execution"
+            >Execution</label
+          >
           {{template "recipe-select-caret"}}
         </div>
       </details>
-      {{end}}
-      <button type="submit" class="ui-button ui-button-outline"><span>Apply</span></button>
+      {{end}} {{if not .Compact}}<button
+        type="submit"
+        class="ui-button ui-button-outline"
+      >
+        <span>Apply</span></button
+      >{{end}}
     </div>
   </fieldset>
+  {{if not .Compact}}
   <p class="ui-recipe-switcher-summary">{{.Summary}}</p>
-  {{if not .Compact}}<p class="ui-recipe-switcher-help">Visual mapping: Default uses <code>reference=auto</code> + <code>skin=none</code>; Material and Base UI neutral use Gelium reference presets; Basecoat packs, Vercel, Alden, and Linear use product skin overlays. Base UI neutral is not official Base UI CSS. Contract defaults to Gelium floors; <code>contract=source</code> opts into source-faithful density.</p>{{end}}
+  {{end}} {{if not .Compact}}
+  <p class="ui-recipe-switcher-help">
+    Visual mapping: Default uses <code>reference=auto</code> +
+    <code>skin=none</code>; Material and Base UI neutral use Gelium reference
+    presets; Basecoat packs, Vercel, Alden, and Linear use product skin
+    overlays. Base UI neutral is not official Base UI CSS. Contract defaults to
+    Gelium floors; <code>contract=source</code> opts into source-faithful
+    density.
+  </p>
+  {{end}}
 </form>
 {{end}}
